@@ -14,3 +14,8 @@ https://www.cnblogs.com/raswin/p/9018388.html
 https://www.cnblogs.com/geekdc/p/11173671.html
 study-notes\阿里云docker镜像加速.txt
 ```
+
+* docker 安装脚本(未测试)
+```
+study-notes\docker-install.sh
+```
