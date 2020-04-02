@@ -1,34 +1,34 @@
 [TOC]
 
-## 2020-04-01
+# 2020-04-01
 
-*  microsoft 远程桌面frp-stcp无效，必须本地远程桌面，还需设置
+#### microsoft 远程桌面frp-stcp无效，必须本地远程桌面，还需设置
 ```
 Win10远程桌面 出现 身份验证错误，要求的函数不受支持，这可能是由于CredSSP加密Oracle修正 解决方法
 
 https://www.cnblogs.com/raswin/p/9018388.html
 ```
 
-*  CentOS7为docker-ce配置阿里云镜像加速器
+#### CentOS7为docker-ce配置阿里云镜像加速器
 ```
 https://www.cnblogs.com/geekdc/p/11173671.html
 study-notes\阿里云docker镜像加速.txt
 ```
 
-## 2020-04-02
+# 2020-04-02
 
-* linux 查看端口使用情况
+#### linux 查看端口使用情况
 ```
 lsof -i:7000
 ```
 
-* linux 后台启动frp服务
+#### linux 后台启动frp服务
 ```
 服务端： nohup ./frps -c frps.ini >/dev/null 2>&1 &
 客户端： nohup ./frpc -c frpc.ini >/dev/null 2>&1 &
 ```
 
-* linux 停止frp
+#### linux 停止frp
 ```
 (1)ps -aux|grep frp| grep -v grep
 	[1]12345
@@ -37,7 +37,7 @@ lsof -i:7000
 kill -9 12345
 ```
 
-* docker 安装jenkins
+#### docker 安装jenkins
 ```
 (1) cd Documents/jenkins(安装在此目录下)
 (2) docker pull jenkins:latest
@@ -55,7 +55,35 @@ kill -9 12345
 	password: ffc68d37caa046d1b605a3d2695008e7)
 ```
 
-* docker 安装脚本(未测试)
+#### docker 安装脚本(未测试)
 ```
 study-notes\docker-install.sh
+```
+
+#### linux 安装 maven
+```
+cd /home/songning/Documents
+mkdir maven
+cd /maven
+wget http://mirrors.hust.edu.cn/apache/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
+tar -zxvf  apache-maven-3.1.1-bin.tar.gz
+mv apache-maven-3.1.1 apachemaven
+vi /etc/profile (配置环境变量)
+	export M2_HOME=/home/songning/Documents/maven/apachemaven
+	export PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin
+source /etc/profile (保存退出后运行下面的命令使配置生效，或者重启服务器生效)
+mvn -v (source /etc/profile)
+```
+
+####  linux 安装java
+```
+yum install java
+cd /usr/lib/jvm (通过yum安装的默认路径)
+vim /etc/profile (将jdk的安装路径加入到JAVA_HOME)
+	#set java environment
+	JAVA_HOME=/usr/lib/jvm/jre-1.6.0-openjdk.x86_64(实际安装版本)
+	PATH=$PATH:$JAVA_HOME/bin
+	CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+	export JAVA_HOME CLASSPATH PATH
+. /etc/profile
 ```
