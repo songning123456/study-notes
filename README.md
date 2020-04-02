@@ -87,3 +87,10 @@ vim /etc/profile (将jdk的安装路径加入到JAVA_HOME)
 	export JAVA_HOME CLASSPATH PATH
 . /etc/profile
 ```
+
+#### window关闭资源管理器黑屏
+```
+ctrl+alt+delete
+任务管理器 新建任务
+explorer.exe
+```
