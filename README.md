@@ -54,3 +54,8 @@ kill -9 12345
 	username: admin
 	password: ffc68d37caa046d1b605a3d2695008e7)
 ```
+
+* docker 安装脚本(未测试)
+```
+study-notes\docker-install.sh
+```
