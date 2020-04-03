@@ -77,15 +77,20 @@ mvn -v (source /etc/profile)
 
 ####  linux 安装java
 ```
-yum install java
-cd /usr/lib/jvm (通过yum安装的默认路径)
-vim /etc/profile (将jdk的安装路径加入到JAVA_HOME)
+* 参考:https://blog.csdn.net/woshimeihuo/article/details/90608081?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1
+* yum search java|grep jdk (使用yum查找jdk)
+* yum install java-1.8.0-openjdk
+* yum install java-1.8.0-openjdk-devel.x86_64(安装开发环境)
+* cd /usr/lib/jvm (通过yum安装的默认路径)
+* vim /etc/profile (将jdk的安装路径加入到JAVA_HOME)
 	#set java environment
-	JAVA_HOME=/usr/lib/jvm/jre-1.6.0-openjdk.x86_64(实际安装版本)
-	PATH=$PATH:$JAVA_HOME/bin
-	CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-	export JAVA_HOME CLASSPATH PATH
-. /etc/profile
+	JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk-1.8.0.242.b08-        			0.el8_1.x86_64 (实际安装版本)   
+	JRE_HOME=$JAVA_HOME/jre
+	CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:
+		$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib 
+	PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+	export JAVA_HOME JRE_HOME CLASS_PATH PATH
+* . /etc/profile (刷新)
 ```
 
 #### window关闭资源管理器黑屏
@@ -122,9 +127,11 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 * linux安装git,maven,java
 * cd /home/songning/Documents/cykb
 * git clone git@github.com:songning123456/cykb-server.git
+	(https://github.com/songning123456/cykb-server.git)
 * cd cykb-server/
 * mvn clean install -DskipTests
 * cp ./target/cykb-1.0.0-SNAPSHOT.jar ../
+* cd ..
 * rm -rf cykb-server
 * vim Dockerfile
 	FROM java:8
@@ -134,5 +141,17 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 	RUN echo "Asia/Shanghai" > /etc/timezone
 	ENV LANG C.UTF-8
 * docker build -t cykb_image -f Dockerfile .
-* docker run --name cykb_container -d -p 8012:8012 cykb_image
+* docker run --net=host --name cykb_container -d cykb_image
+  (最后一步被坑，不需要bridge模式，host模式直接用宿主机端口)
+```
+
+#### centos7 防火墙
+```
+* 操作防火墙要重启docker
+	service docker restart
+* 基本命令
+	firewall-cmd --state (检查防火墙的状态)
+	systemctl stop firewalld.service (停止firewall)
+	systemctl disable firewalld.service (禁止firewall开机启动)
+	systemctl start firewalld.service (启动)
 ```

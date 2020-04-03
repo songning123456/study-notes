@@ -12,3 +12,4 @@ yum install docker-ce-17.12.1.ce
 # Æô¶¯Docker
 systemctl start docker
 systemctl enable docker
+docker -v
