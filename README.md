@@ -147,11 +147,42 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 
 #### centos7 防火墙
 ```
-* 操作防火墙要重启docker
-	service docker restart
 * 基本命令
 	firewall-cmd --state (检查防火墙的状态)
 	systemctl stop firewalld.service (停止firewall)
 	systemctl disable firewalld.service (禁止firewall开机启动)
 	systemctl start firewalld.service (启动)
+	systemctl restart firewalld.service (重启)
+	firewall-cmd --zone=public --add-port=5672/tcp --permanent(开放)
+	firewall-cmd --zone=public --remove-port=5672/tcp --permanent(关闭)
+	firewall-cmd --reload (配置立即生效)
+```
+
+#### 阿里云docker镜像加速
+```
+https://f35jtd7k.mirror.aliyuncs.com
+```
+
+#### 修改window host文件(刷新)
+```
+ipconfig /flushdns
+```
+
+#### nginx反向代理
+```
+* cd /etc/nginx
+* vim nginx.conf
+* include /etc/nginx/conf.d/*.conf;(一定要注释掉默认的配置文件)
+	server {
+		listen        80;
+		server_name   localhost;
+		location ^~ /server/ {
+			proxy_pass   http://localhost:8072/;
+			proxy_set_header X-Real-IP $remote_addr;
+		}
+		location / {
+			proxy_pass  http://localhost:8070/;
+		}
+	}
+* systemctl restart nginx.service(修改配置文件后重启nginx)
 ```
