@@ -94,3 +94,45 @@ ctrl+alt+delete
 任务管理器 新建任务
 explorer.exe
 ```
+
+# 2020-04-03
+
+#### 安装maven时修改maven settings.xml
+```
+安装maven时，修改settings.xml文件(Documents/maven/apachemaven/conf)
+在<mirrors>中添加 
+	<mirror>
+		<id>alimaven</id>
+		<mirrorOf>central</mirrorOf>
+		<name>aliyun maven</name>
+		<url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+	</mirror> 
+否则 bug: 
+[ERROR] Plugin org.springframework.boot:spring-boot-maven-plugin:2.2.5.RELEASE or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.springframewo
+rk.boot:spring-boot-maven-plugin:jar:2.2.5.RELEASE: Could not transfer artifact org.springframework.boot:spring-boot-maven-plugin:pom:2.2.5.RELEASE from/to central (https://repo.maven.a
+pache.org/maven2): Connect to repo.maven.apache.org:443 [repo.maven.apache.org/151.101.24.215] failed: Connection timed out: connect -> [Help 1]
+
+yum install java-devel
+否则 bug:
+No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+```
+
+#### docker部署cykb-server
+```
+* linux安装git,maven,java
+* cd /home/songning/Documents/cykb
+* git clone git@github.com:songning123456/cykb-server.git
+* cd cykb-server/
+* mvn clean install -DskipTests
+* cp ./target/cykb-1.0.0-SNAPSHOT.jar ../
+* rm -rf cykb-server
+* vim Dockerfile
+	FROM java:8
+	EXPOSE 8012
+	COPY cykb-1.0.0-SNAPSHOT.jar /cykb/cykb-server.jar
+	CMD ["java", "-jar", "/cykb/cykb-server.jar"]
+	RUN echo "Asia/Shanghai" > /etc/timezone
+	ENV LANG C.UTF-8
+* docker build -t cykb_image -f Dockerfile .
+* docker run --name cykb_container -d -p 8012:8012 cykb_image
+```
