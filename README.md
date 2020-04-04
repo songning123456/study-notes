@@ -161,7 +161,9 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
         docker stop ${containerName}
  fi
  docker rm ${containerName}
- docker run --name cykb_container -d -p 8012:8012 cykb_image
+ docker rmi cykb_image
+ docker build -t cykb_image -f Dockerfile .
+ docker run --net=host --name cykb_container -d cykb_image
 ```
 
 #### centos7 防火墙
@@ -175,6 +177,7 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 	firewall-cmd --zone=public --add-port=5672/tcp --permanent(开放)
 	firewall-cmd --zone=public --remove-port=5672/tcp --permanent(关闭)
 	firewall-cmd --reload (配置立即生效)
+    firewall-cmd --list-ports (查看已经开放的端口)
 ```
 
 #### 阿里云docker镜像加速
