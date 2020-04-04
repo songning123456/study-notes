@@ -145,6 +145,26 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
   (最后一步被坑，不需要bridge模式，host模式直接用宿主机端口)
 ```
 
+#### docker部署cykb-theft
+```
+* cd /home/songning/pro/theft
+* git clone https://github.com/songning123456/cykb-theft.git
+* cd cykb-theft/
+* mvn clean install -DskipTests
+* cp ./target/theft-1.0.0-SNAPSHOT.jar ../
+* cd ..
+* rm -rf cykb-theft
+* vim Dockerfile
+	FROM java:8
+	EXPOSE 8014
+	COPY theft-1.0.0-SNAPSHOT.jar /cykb/cykb-theft.jar
+	CMD ["java", "-jar", "/cykb/cykb-theft.jar"]
+	RUN echo "Asia/Shanghai" > /etc/timezone
+	ENV LANG C.UTF-8
+* docker build -t cykb-theft_image -f Dockerfile .
+* docker run --net=host --name cykb-theft_container -d cykb-theft_image
+```
+
 #### docker 部署 cykb-script
 ```
  cd /home/songning/pro/cykb
@@ -164,6 +184,27 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
  docker rmi cykb_image
  docker build -t cykb_image -f Dockerfile .
  docker run --net=host --name cykb_container -d cykb_image
+```
+
+#### docker 部署 cykb-theft-script
+```
+ cd /home/songning/pro/theft
+ rm -rf theft-1.0.0-SNAPSHOT.jar
+ git clone https://github.com/songning123456/cykb-theft.git
+ cd cykb-theft/
+ mvn clean install -DskipTests
+ cp ./target/theft-1.0.0-SNAPSHOT.jar ../
+ cd ..
+ rm -rf cykb-theft
+ containerName=cykb-theft_container
+ exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
+ if [ "${exist}" == "true" ]; then
+        docker stop ${containerName}
+ fi
+ docker rm ${containerName}
+ docker rmi cykb-theft_image
+ docker build -t cykb-theft_image -f Dockerfile .
+ docker run --net=host --name cykb-theft_container -d cykb-theft_image
 ```
 
 #### centos7 防火墙
