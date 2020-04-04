@@ -55,9 +55,15 @@ kill -9 12345
 	password: ffc68d37caa046d1b605a3d2695008e7)
 ```
 
-#### docker 安装脚本(未测试)
+#### docker 安装
 ```
-study-notes\docker-install.sh
+yum update
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install docker-ce-17.12.1.ce
+systemctl start docker
+systemctl enable docker
+docker -v
 ```
 
 #### linux 安装 maven
@@ -186,3 +192,4 @@ ipconfig /flushdns
 	}
 * systemctl restart nginx.service(修改配置文件后重启nginx)
 ```
+
