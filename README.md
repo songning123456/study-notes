@@ -1,7 +1,5 @@
 [TOC]
 
-# 2020-04-01
-
 #### microsoft 远程桌面frp-stcp无效，必须本地远程桌面，还需设置
 ```
 Win10远程桌面 出现 身份验证错误，要求的函数不受支持，这可能是由于CredSSP加密Oracle修正 解决方法
@@ -14,8 +12,6 @@ https://www.cnblogs.com/raswin/p/9018388.html
 https://www.cnblogs.com/geekdc/p/11173671.html
 study-notes\阿里云docker镜像加速.txt
 ```
-
-# 2020-04-02
 
 #### linux 查看端口使用情况
 ```
@@ -106,8 +102,6 @@ ctrl+alt+delete
 explorer.exe
 ```
 
-# 2020-04-03
-
 #### 安装maven时修改maven settings.xml
 ```
 安装maven时，修改settings.xml文件(Documents/maven/apachemaven/conf)
@@ -131,7 +125,7 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 #### docker部署cykb-server
 ```
 * linux安装git,maven,java
-* cd /home/songning/Documents/cykb
+* cd /home/songning/pro/cykb
 * git clone git@github.com:songning123456/cykb-server.git
 	(https://github.com/songning123456/cykb-server.git)
 * cd cykb-server/
@@ -149,6 +143,25 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 * docker build -t cykb_image -f Dockerfile .
 * docker run --net=host --name cykb_container -d cykb_image
   (最后一步被坑，不需要bridge模式，host模式直接用宿主机端口)
+```
+
+#### docker 部署 cykb-script
+```
+ cd /home/songning/pro/cykb
+ rm -rf cykb-1.0.0-SNAPSHOT.jar
+ git clone https://github.com/songning123456/cykb-server.git
+ cd cykb-server/
+ mvn clean install -DskipTests
+ cp ./target/cykb-1.0.0-SNAPSHOT.jar ../
+ cd ..
+ rm -rf cykb-server
+ containerName=cykb_container
+ exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
+ if [ "${exist}" == "true" ]; then
+        docker stop ${containerName}
+ fi
+ docker rm ${containerName}
+ docker run --name cykb_container -d -p 8012:8012 cykb_image
 ```
 
 #### centos7 防火墙
