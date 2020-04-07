@@ -250,3 +250,31 @@ ipconfig /flushdns
 * systemctl restart nginx.service(修改配置文件后重启nginx)
 ```
 
+#### docker安装elasticsearch&&kibana
+```
+* docker pull elasticsearch:6.5.4
+* mkdir es-data
+  chmod 777 es-data
+  mkdir es-conf
+  cd es-conf/
+  rz elasticsearch.yml
+* docker run -d -u 1000:1000 
+	--restart=always --privileged=true 
+	--name es_container 
+	-v $PWD/es-data:/usr/share/elasticsearch/data
+	-v $PWD/es-conf/elasticsearch.yml:
+	/usr/share/elasticsearch/config/elasticsearch.yml
+    -e "discovery.type=single-node"  
+    -e "xpack.security.enabled=false"  
+    -e "TZ=Asia/Shanghai"  
+    -p 9200:9200 -p 9300:9300 elasticsearch:6.5.4
+* docker pull kibana:6.5.4
+* docker run --name kibana_container -p 5601:5601 
+	-d -e ELASTICSEARCH_URL=http://192.168.0.105:9200 kibana:6.5.4
+```
+
+#### linux查看某个端口是否被占用
+```
+* netstat -ano | findstr "8080"
+```
+
