@@ -185,15 +185,18 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 
 #### docker部署cykb-web-script
 ```
+cd /root/cykb-web
 rm -rf h5
 rm -rf h5.tar.gz
+rz
+tar -zxvf h5.tar.gz
 containerName=cykb-web_container
 exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
 	if [ "${exist}" == "true" ]; then
 		docker stop ${containerName}
 	fi
 docker rm ${containerName}
-docker rmi cykb_image
+docker rmi cykb-web_image
 docker build -t cykb-web_image -f Dockerfile .
 docker run --name cykb-web_container -d -p 8030:80 cykb-web_image
 ```
