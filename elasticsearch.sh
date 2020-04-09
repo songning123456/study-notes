@@ -40,6 +40,9 @@ createIndex()
 				"avatar":{
 					"type":"keyword"
 				},
+				"gender": {
+				  "type":"short"
+				},
 				"updateTime":{
 					"type":"date",
 					"format":"yyyy-MM-dd HH:mm:ss"
