@@ -168,6 +168,8 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 #### docker部署cykb-web
 ```
 	// window
+* cykb图片地址:		https://www.iconfont.cn/collections/detail?
+					spm=a313x.7781069.1998910419.d9df05512&cid=2350
 * HX: 发行h5版本
 * cd ...(项目路径)\unpackage\dist\build
 * tar -zcvf h5.tar.gz h5
