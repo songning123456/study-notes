@@ -165,6 +165,39 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 * docker run --net=host --name cykb-theft_container -d cykb-theft_image
 ```
 
+#### docker部署cykb-web
+```
+	// window
+* HX: 发行h5版本
+* cd ...(项目路径)\unpackage\dist\build
+* tar -zcvf h5.tar.gz h5
+	// linux
+* mkdir cykb-web
+* cd cykb-web
+* rz (h5.tar.gz)
+* tar -zxvf h5.tar.gz
+* vim Dockerfile
+	FROM nginx
+	COPY h5/ /usr/share/nginx/html/
+* docker build -t cykb-web_image -f Dockerfile .
+* docker run --name cykb-web_container -d -p 8030:80 cykb-web_image
+```
+
+#### docker部署cykb-web-script
+```
+rm -rf h5
+rm -rf h5.tar.gz
+containerName=cykb-web_container
+exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
+	if [ "${exist}" == "true" ]; then
+		docker stop ${containerName}
+	fi
+docker rm ${containerName}
+docker rmi cykb_image
+docker build -t cykb-web_image -f Dockerfile .
+docker run --name cykb-web_container -d -p 8030:80 cykb-web_image
+```
+
 #### docker 部署 cykb-script
 ```
  cd /home/songning/pro/cykb
