@@ -20,7 +20,7 @@
 * 启动镜像
   ```
   docker run --name mysql_container  
-  -d -p 3306:3306 
+  -d -p 3306:3306 --restart=always
   -v $PWD/mysql-config:/etc/mysql/conf.d 
   -v $PWD/mysql-logs:/logs 
   -v $PWD/mysql-data:/var/lib/mysql 
@@ -38,7 +38,7 @@
 * 启动镜像(*redis.conf本地上传到redis-config文件夹下*)
   ```
   docker run --name redis_container
-  -d -p 6379:6379
+  -d -p 6379:6379 --restart=always
   -v $PWD/redis-config/redis.conf:/usr/local/etc/redis/redis.conf 
   -v $PWD/redis-data:/data 
   redis redis-server   
@@ -76,7 +76,7 @@
 * 启动容器(**保证mysql中相关databse已经创建好 create database xxx**)
   ```
   docker run --name blog-server_container 
-  -d -p 8072:8072
+  -d -p 8072:8072 --restart=always
   --link mysql_container:localhost 
   --link redis_container
   -v /etc/localtime:/etc/localtime
@@ -114,7 +114,7 @@
 * 启动容器
   ```
   docker run --name blog-front_container 
-  -d -p 8070:80
+  -d -p 8070:80 --restart=always
   -v /etc/localtime:/etc/localtime
   --link blog-server_container
   blog-front_image:0.1

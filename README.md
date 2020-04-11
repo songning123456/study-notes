@@ -140,8 +140,8 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 	CMD ["java", "-jar", "/cykb/cykb-server.jar"]
 	RUN echo "Asia/Shanghai" > /etc/timezone
 	ENV LANG C.UTF-8
-* docker build -t cykb_image -f Dockerfile .
-* docker run --net=host --name cykb_container -d cykb_image
+* docker build -t cykb-server_image -f Dockerfile .
+* docker run --net=host --name cykb-server_container -d cykb-server_image
   (最后一步被坑，不需要bridge模式，host模式直接用宿主机端口)
 ```
 
@@ -203,7 +203,7 @@ docker build -t cykb-web_image -f Dockerfile .
 docker run --name cykb-web_container -d -p 8030:80 cykb-web_image
 ```
 
-#### docker 部署 cykb-script
+#### docker 部署 cykb-server-script
 ```
  cd /home/songning/pro/cykb
  rm -rf cykb-1.0.0-SNAPSHOT.jar
@@ -213,15 +213,15 @@ docker run --name cykb-web_container -d -p 8030:80 cykb-web_image
  cp ./target/cykb-1.0.0-SNAPSHOT.jar ../
  cd ..
  rm -rf cykb-server
- containerName=cykb_container
+ containerName=cykb-server_container
  exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
  if [ "${exist}" == "true" ]; then
         docker stop ${containerName}
  fi
  docker rm ${containerName}
- docker rmi cykb_image
- docker build -t cykb_image -f Dockerfile .
- docker run --net=host --name cykb_container -d cykb_image
+ docker rmi cykb-server_image
+ docker build -t cykb-server_image -f Dockerfile .
+ docker run --net=host --name cykb-server_container -d --restart=always cykb-server_image
 ```
 
 #### docker 部署 cykb-theft-script
@@ -242,7 +242,7 @@ docker run --name cykb-web_container -d -p 8030:80 cykb-web_image
  docker rm ${containerName}
  docker rmi cykb-theft_image
  docker build -t cykb-theft_image -f Dockerfile .
- docker run --net=host --name cykb-theft_container -d cykb-theft_image
+ docker run --net=host --name cykb-theft_container -d --restart=always cykb-theft_image
 ```
 
 #### centos7 防火墙
