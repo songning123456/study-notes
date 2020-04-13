@@ -307,8 +307,8 @@ ipconfig /flushdns
     -e "TZ=Asia/Shanghai"  
     -p 9200:9200 -p 9300:9300 elasticsearch:6.5.4
 * docker pull kibana:6.5.4
-* docker run --name kibana_container -p 5601:5601 
-	-d -e ELASTICSEARCH_URL=http://192.168.0.105:9200 kibana:6.5.4
+* docker run --name kibana_container -p 5601:5601 --restart=always
+	-d -e ELASTICSEARCH_URL=http://192.168.0.108:9200 kibana:6.5.4
 ```
 
 #### linux查看某个端口是否被占用
