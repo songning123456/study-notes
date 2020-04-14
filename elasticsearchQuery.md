@@ -184,7 +184,7 @@ GET /index/type/_search
   }
 }
 
-public List<SearchResult.Hit<Object, Void>> boolQuery1(String index, String type, int from, int size, Map<String, Object> params) throws Exception {
+public List<SearchResult.Hit<Object, Void>> boolTermsQuery(String index, String type, int from, int size, Map<String, Object> params) throws Exception {
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
     for (Map.Entry<String, Object> item : params.entrySet()) {
@@ -244,7 +244,7 @@ GET /index/type/_search
   ]
 }
 
-public List<SearchResult.Hit<Object, Void>> boolQuery1(String index, String type, int from, int size, String sortField, Boolean sortType, Map<String, Object> params) throws Exception {
+public List<SearchResult.Hit<Object, Void>> boolTermsQuery(String index, String type, int from, int size, String sortField, Boolean sortType, Map<String, Object> params) throws Exception {
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
     for (Map.Entry<String, Object> item : params.entrySet()) {
@@ -252,6 +252,96 @@ public List<SearchResult.Hit<Object, Void>> boolQuery1(String index, String type
         Object fieldValue = item.getValue();
         queryBuilder.must(QueryBuilders.termsQuery(fieldName, fieldValue));
     }
+    searchSourceBuilder.query(queryBuilder);
+    searchSourceBuilder.from(from);
+    searchSourceBuilder.size(size);
+    if (sortType) {
+        searchSourceBuilder.sort(sortField, SortOrder.ASC);
+    } else {
+        searchSourceBuilder.sort(sortField, SortOrder.DESC);
+    }
+    String query = searchSourceBuilder.toString();
+    Search search = new Search.Builder(query).addIndex(index).addType(type).build();
+    SearchResult searchResult = jestClient.execute(search);
+    return searchResult.getHits(Object.class);
+}
+```
+
+#### select * from :type where :fieldName1 = :fieldValue1 and :fieldName2 = :fieldValue2 and :fieldName3 = :fieldValue3 and :fieldName > :min and :fieldName < :max order by :sortField :sortType limit :from, :size;
+```
+GET /index/type/_search
+{
+  "from" : from,
+  "size" : size,
+  "query" : {
+    "bool" : {
+      "must" : [
+        {
+          "terms" : {
+            "fieldName1" : [
+              "fieldValue1"
+            ],
+            "boost" : 1.0
+          }
+        },
+        {
+          "terms" : {
+            "fieldName2" : [
+              "fieldValue2"
+            ],
+            "boost" : 1.0
+          }
+        },
+        {
+          "range" : {
+            "rangeFieldName" : {
+              "from" : "min",
+              "to" : "max",
+              "include_lower" : false,
+              "include_upper" : false,
+              "boost" : 1.0
+            }
+          }
+        }
+      ],
+      "disable_coord" : false,
+      "adjust_pure_negative" : true,
+      "boost" : 1.0
+    }
+  },
+  "sort" : [
+    {
+      "sortFieldName" : {
+        "order" : "sortType"
+      }
+    }
+  ]
+}
+
+public List<SearchResult.Hit<Object, Void>> boolTermsRangeQuery(String index, String type, int from, int size, String sortField, Boolean sortType, Map<String, Object> params, String fieldName, Map<String, Object> range) throws Exception {
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+    for (Map.Entry<String, Object> item : params.entrySet()) {
+        String key = item.getKey();
+        Object value = item.getValue();
+        queryBuilder.must(QueryBuilders.termsQuery(key, value));
+    }
+    RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(fieldName);
+    Object gt = range.get("gt");
+    Object lt = range.get("lt");
+    Object gte = range.get("gte");
+    Object lte = range.get("lte");
+    if (gt != null) {
+        rangeQueryBuilder.gt(gt);
+    } else if (gte != null) {
+        rangeQueryBuilder.gte(gte);
+    }
+    if (lt != null) {
+        rangeQueryBuilder.lt(lt);
+    } else if (lte != null) {
+        rangeQueryBuilder.lte(lte);
+    }
+    queryBuilder.must(rangeQueryBuilder);
     searchSourceBuilder.query(queryBuilder);
     searchSourceBuilder.from(from);
     searchSourceBuilder.size(size);
@@ -308,17 +398,22 @@ GET /index/type/_search
   ]
 }
 
-public List<SearchResult.Hit<Object, Void>> rangeQuery(String index, String type, int from, int size, String filedName, Map<String, Object> fromTo, String sortField, boolean sortType) throws Exception {
+public List<SearchResult.Hit<Object, Void>> rangeQuery(String index, String type, int from, int size, String fieldName, Map<String, Object> range, String sortField, boolean sortType) throws Exception {
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-    RangeQueryBuilder rangeQueryBuilder = null;
-    Object min = fromTo.get("from");
-    Object max = fromTo.get("to");
-    if (min != null && max != null) {
-        rangeQueryBuilder = QueryBuilders.rangeQuery(filedName).from(min).to(max);
-    } else if (min != null) {
-        rangeQueryBuilder = QueryBuilders.rangeQuery(filedName).from(min);
-    } else if (max != null) {
-        rangeQueryBuilder = QueryBuilders.rangeQuery(filedName).to(max);
+    RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(fieldName);
+    Object gt = range.get("gt");
+    Object lt = range.get("lt");
+    Object gte = range.get("gte");
+    Object lte = range.get("lte");
+    if (gt != null) {
+        rangeQueryBuilder.gt(gt);
+    } else if (gte != null) {
+        rangeQueryBuilder.gte(gte);
+    }
+    if (lt != null) {
+        rangeQueryBuilder.lt(lt);
+    } else if (lte != null) {
+        rangeQueryBuilder.lte(lte);
     }
     searchSourceBuilder.query(rangeQueryBuilder);
     searchSourceBuilder.from(from);
