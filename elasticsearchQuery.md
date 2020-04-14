@@ -73,6 +73,41 @@ public List<SearchResult.Hit<Object, Void>> termQuery(String index, String type,
 
 ```
 
+#### USE :index;select * from :type order by :sortField :sortType limit :from, :size;
+```
+* params => (String)index (String)type (int)from (int)size (String)sortField sortType(ASC,DESC)
+
+GET /index/type/_search
+{
+  "from" : from,
+  "size" : size,
+  "sort" : [
+    {
+      "sortField" : {
+        "order" : "sortType"
+      }
+    }
+  ]
+}
+
+public List<SearchResult.Hit<Object, Void>> termQuery(String index, String type, int from, int size, String sortField, boolean sortType) throws Exception {
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    searchSourceBuilder.from(from);
+    searchSourceBuilder.size(size);
+    if (sortType) {
+        searchSourceBuilder.sort(sortField, SortOrder.ASC);
+    } else {
+        searchSourceBuilder.sort(sortField, SortOrder.DESC);
+    }
+    String query = searchSourceBuilder.toString();
+    Search search = new Search.Builder(query).addIndex(index).addType(type).build();
+    SearchResult searchResult = jestClient.execute(search);
+    return searchResult.getHits(Object.class);
+}
+
+
+```
+
 #### USE :index;select * from :type where :fieldName in :fieldValues limit :from, :size;
 ```
 * params => (String)index (String)type (int)from (int)size (String)fieldName (String[])fieldValues 
@@ -167,6 +202,71 @@ public List<SearchResult.Hit<Object, Void>> boolQuery1(String index, String type
 }
 ```
 
+#### select * from :type where :fieldName1 = :fieldValue1 and :fieldName2 = :fieldValue2 and :fieldName3 = :fieldValue3 order by :sortField :sortType limit :from, :size;
+```
+* params => (String)index (String)type (int)from (int)size
+
+GET /index/type/_search
+{
+  "from" : from,
+  "size" : size,
+  "query" : {
+    "bool" : {
+      "must" : [
+        {
+          "terms" : {
+            "fieldName1" : [
+              "fieldValue1"
+            ],
+            "boost" : 1.0
+          }
+        },
+        {
+          "terms" : {
+            "fieldName2" : [
+              "fieldValue2"
+            ],
+            "boost" : 1.0
+          }
+        }
+      ],
+      "disable_coord" : false,
+      "adjust_pure_negative" : true,
+      "boost" : 1.0
+    }
+  },
+  "sort" : [
+    {
+      "sortField" : {
+        "order" : "sortType"
+      }
+    }
+  ]
+}
+
+public List<SearchResult.Hit<Object, Void>> boolQuery1(String index, String type, int from, int size, String sortField, Boolean sortType, Map<String, Object> params) throws Exception {
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+    for (Map.Entry<String, Object> item : params.entrySet()) {
+        String fieldName = item.getKey();
+        Object fieldValue = item.getValue();
+        queryBuilder.must(QueryBuilders.termsQuery(fieldName, fieldValue));
+    }
+    searchSourceBuilder.query(queryBuilder);
+    searchSourceBuilder.from(from);
+    searchSourceBuilder.size(size);
+    if (sortType) {
+        searchSourceBuilder.sort(sortField, SortOrder.ASC);
+    } else {
+        searchSourceBuilder.sort(sortField, SortOrder.DESC);
+    }
+    String query = searchSourceBuilder.toString();
+    Search search = new Search.Builder(query).addIndex(index).addType(type).build();
+    SearchResult searchResult = jestClient.execute(search);
+    return searchResult.getHits(Object.class);
+}
+```
+
 #### USE :index;select * from :type where id = :id
 ```
 * params => (String)index (String)type (String)id
@@ -177,5 +277,60 @@ public Object findById(String index, String type, String id) throws Exception {
     Get get = new Get.Builder(index, id).type(type).build();
     JestResult result = jestClient.execute(get);
     return result.getSourceAsObject(Object.class);
+}
+```
+
+#### select * from :type where :fieldName > :min and :fieldName < :max order by :sortField :sortType limit :from, :size;
+```
+* params => (String)index (String)type (int)from (int)size (String)fieldName (String)fieldValue (String)sortField sortType(ASC,DESC)
+
+GET /index/type/_search
+{
+  "from" : from,
+  "size" : size,
+  "query" : {
+    "range" : {
+      "fieldName" : {
+        "from" : "min",
+        "to" : "max",
+        "include_lower" : true,
+        "include_upper" : true,
+        "boost" : 1.0
+      }
+    }
+  },
+  "sort" : [
+    {
+      "sortField" : {
+        "order" : "sortType"
+      }
+    }
+  ]
+}
+
+public List<SearchResult.Hit<Object, Void>> rangeQuery(String index, String type, int from, int size, String filedName, Map<String, Object> fromTo, String sortField, boolean sortType) throws Exception {
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    RangeQueryBuilder rangeQueryBuilder = null;
+    Object min = fromTo.get("from");
+    Object max = fromTo.get("to");
+    if (min != null && max != null) {
+        rangeQueryBuilder = QueryBuilders.rangeQuery(filedName).from(min).to(max);
+    } else if (min != null) {
+        rangeQueryBuilder = QueryBuilders.rangeQuery(filedName).from(min);
+    } else if (max != null) {
+        rangeQueryBuilder = QueryBuilders.rangeQuery(filedName).to(max);
+    }
+    searchSourceBuilder.query(rangeQueryBuilder);
+    searchSourceBuilder.from(from);
+    searchSourceBuilder.size(size);
+    if (sortType) {
+        searchSourceBuilder.sort(sortField, SortOrder.ASC);
+    } else {
+        searchSourceBuilder.sort(sortField, SortOrder.DESC);
+    }
+    String query = searchSourceBuilder.toString();
+    Search search = new Search.Builder(query).addIndex(index).addType(type).build();
+    SearchResult searchResult = jestClient.execute(search);
+    return searchResult.getHits(Object.class);
 }
 ```
