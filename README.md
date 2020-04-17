@@ -162,7 +162,7 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 	RUN echo "Asia/Shanghai" > /etc/timezone
 	ENV LANG C.UTF-8
 * docker build -t cykb-theft_image -f Dockerfile .
-* docker run --net=host --name cykb-theft_container -d cykb-theft_image
+* docker run --restart=always --net=host --name cykb-theft_container -d cykb-theft_image
 ```
 
 #### docker部署cykb-web
