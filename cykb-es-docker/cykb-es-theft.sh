@@ -17,3 +17,6 @@ docker rm ${containerName}
 docker rmi cykb-es-theft_image
 docker build -t cykb-es-theft_image -f Dockerfile .
 docker run --net=host --name cykb-es-theft_container -d --restart=always cykb-es-theft_image
+
+# 用notepade转为unicode然后上传
+# chmod u+x cykb-es.theft.sh
