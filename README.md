@@ -223,3 +223,32 @@ ipconfig /flushdns
     error.html这个文件，这样一步一步就能找到自定义的错误页面了
 ```
 
+#### linux 固定ip
+```
+参考 https://blog.csdn.net/qq_38138069/article/details/80982527
+
+* vim /etc/sysconfig/network-scripts/ifcfg-ens33
+
+    TYPE="Ethernet"
+    PROXY_METHOD="none"
+    BROWSER_ONLY="no"
+    BOOTPROTO="static"
+    DEFROUTE="yes"
+    IPV4_FAILURE_FATAL="no"
+    IPV6INIT="yes"
+    IPV6_AUTOCONF="yes"
+    IPV6_DEFROUTE="yes"
+    IPV6_FAILURE_FATAL="no"
+    IPV6_ADDR_GEN_MODE="stable-privacy"
+    NAME="ens33"
+    UUID="1f749bb6-3cfb-44f0-a028-eb1ac2c0ddbd"
+    DEVICE="ens33"
+    ONBOOT="yes"
+    IPADDR=192.168.0.108
+    NETMASK=255.255.255.0
+    GATEWAY=192.168.0.1
+    DNS1=8.8.8.8
+
+* reboot
+```
+
