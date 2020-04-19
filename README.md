@@ -232,7 +232,7 @@ ipconfig /flushdns
     TYPE="Ethernet"
     PROXY_METHOD="none"
     BROWSER_ONLY="no"
-    BOOTPROTO="static"
+    BOOTPROTO="static" (dhcp 改为 static)
     DEFROUTE="yes"
     IPV4_FAILURE_FATAL="no"
     IPV6INIT="yes"
@@ -244,10 +244,10 @@ ipconfig /flushdns
     UUID="1f749bb6-3cfb-44f0-a028-eb1ac2c0ddbd"
     DEVICE="ens33"
     ONBOOT="yes"
-    IPADDR=192.168.0.108
-    NETMASK=255.255.255.0
-    GATEWAY=192.168.0.1
-    DNS1=8.8.8.8
+    IPADDR=192.168.0.108 (填写需要的静态ip)
+    NETMASK=255.255.255.0 (宿主机子网掩码)
+    GATEWAY=192.168.0.1 (宿主机网关)
+    DNS1=8.8.8.8 (默认使用谷歌)
 
 * reboot
 ```
