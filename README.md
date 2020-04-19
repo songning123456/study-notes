@@ -241,13 +241,16 @@ ipconfig /flushdns
     IPV6_FAILURE_FATAL="no"
     IPV6_ADDR_GEN_MODE="stable-privacy"
     NAME="ens33"
-    UUID="1f749bb6-3cfb-44f0-a028-eb1ac2c0ddbd"
+    UUID="faf68ce4-4ed9-4991-9475-7874b8fde25f"
     DEVICE="ens33"
     ONBOOT="yes"
-    IPADDR=192.168.0.108 (填写需要的静态ip)
-    NETMASK=255.255.255.0 (宿主机子网掩码)
-    GATEWAY=192.168.0.1 (宿主机网关)
-    DNS1=8.8.8.8 (默认使用谷歌)
+    
+    # =两侧一定不能有空格，此处被坑
+    IPADDR="192.168.0.110" (填写需要的静态ip)
+    GATEWAY="192.168.0.1" (宿主机网关)
+    NETMASK="255.255.255.0" (宿主机子网掩码)
+    DNS1=114.114.114.114
+    DNS2=8.8.8.8
 
 * reboot
 ```
