@@ -180,8 +180,7 @@ ipconfig /flushdns
 	--restart=always --privileged=true 
 	--name es_container 
 	-v $PWD/es-data:/usr/share/elasticsearch/data
-	-v $PWD/es-conf/elasticsearch.yml:
-	/usr/share/elasticsearch/config/elasticsearch.yml
+	-v $PWD/es-conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     -e "discovery.type=single-node"  
     -e "xpack.security.enabled=false"  
     -e "TZ=Asia/Shanghai"  
