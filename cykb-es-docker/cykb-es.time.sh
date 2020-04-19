@@ -1,11 +1,11 @@
 #!/bin/sh
 
 cd /home/songning/pro/cykb-es-time
-rm -rf cykb-es-time-1.0.0-SNAPSHOT.jar
+rm -rf time-1.0.0-SNAPSHOT.jar
 git clone https://github.com/songning123456/cykb-es-time.git
 cd cykb-es-time/
 mvn clean install -DskipTests
-cp ./target/cykb-es-time-1.0.0-SNAPSHOT.jar ../
+cp ./target/time-1.0.0-SNAPSHOT.jar ../
 cd ..
 rm -rf cykb-es-time
 containerName=cykb-es-time_container
