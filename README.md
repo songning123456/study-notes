@@ -138,7 +138,10 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 
 #### 阿里云docker镜像加速
 ```
-https://f35jtd7k.mirror.aliyuncs.com
+* cd /etc/docker/
+* rz (daemon.json)
+* sudo systemctl daemon-reload
+* sudo systemctl restart docker
 ```
 
 #### 修改window host文件(刷新)
