@@ -19,4 +19,4 @@ docker build -t cykb-es-time_image -f Dockerfile .
 docker run --net=host --name cykb-es-time_container -d --restart=always cykb-es-time_image
 
 # 用notepade转为unicode然后上传
-# chmod u+x cykb-es.time.sh
+# chmod u+x cykb-es-time.sh
