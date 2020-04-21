@@ -8,6 +8,21 @@ POST users_index/users/_delete_by_query
 }
 ```
 
+#### 表补充_mapping
+```
+
+PUT /chapters_index/_mapping/chapters
+{
+  "chapters": {
+      "properties": {
+        "contentUrl": {
+          "type": "keyword"
+        }
+      }
+    }
+}
+```
+
 ```$xslt
 GET /users_index/users/_search
 {
