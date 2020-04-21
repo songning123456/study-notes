@@ -43,7 +43,10 @@ createIndex()
 				"updateTime":{
 					"type":"date",
 					"format":"yyyy-MM-dd HH:mm:ss"
-				}
+				},
+				"contentUrl":{
+          "type":"keyword"
+        }
 			}
 		}
 	  }
