@@ -261,8 +261,8 @@ ipconfig /flushdns
 ```
 * docker pull wurstmeister/zookeeper:latest
 * docker run -d --name zookeeper_container --restart=always -p 2181:2181 -v /etc/localtime:/etc/localtime wurstmeister/zookeeper
-* docker pull wurstmeister/kafka:latest
-* docker run -d --name kafka_container --restart=always -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.0.108:2181/kafka -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.0.108:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -v /etc/localtime:/etc/localtime wurstmeister/kafka
+* docker pull wurstmeister/kafka:2.11-0.11.0.3
+* docker run -d --name kafka_container --restart=always --link zookeeper_container -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.0.108:2181/kafka -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.0.108:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -v /etc/localtime:/etc/localtime wurstmeister/kafka:2.11-0.11.0.3
 
     注释: 
     -e KAFKA_BROKER_ID=0  在kafka集群中，每个kafka都有一个BROKER_ID来区分自己
