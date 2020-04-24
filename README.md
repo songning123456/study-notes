@@ -271,3 +271,9 @@ ipconfig /flushdns
     -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 配置kafka的监听端口
 ```
 
+#### 下载docker日志
+```
+docker logs xxx_container > xxx-log.txt
+sz xxx-log.txt
+```
+
