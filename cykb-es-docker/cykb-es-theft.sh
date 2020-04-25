@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/songning/pro/cykb-es-theft
+cd /home/songning/pro/cykb-theft
 rm -rf cykb-es-theft-1.0.0-SNAPSHOT.jar
 git clone https://github.com/songning123456/cykb-es-theft.git
 cd cykb-es-theft/

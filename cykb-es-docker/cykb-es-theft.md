@@ -1,4 +1,4 @@
-cd /home/songning/pro/cykb-es-theft
+cd /home/songning/pro/cykb-theft
 git clone https://github.com/songning123456/cykb-es-theft.git (USE HTTPS)
 cd cykb-es-theft/
 mvn clean install -DskipTests
