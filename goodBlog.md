@@ -24,3 +24,4 @@ Docker使用阿里云镜像加速: https://www.cnblogs.com/ianduin/p/8678922.htm
 Docker 部署 Spring initializr => https://www.jianshu.com/p/ca3058135fb1
 Vue-Video-Player => https://github.surmon.me/vue-video-player/
 vue.js仿微信聊天窗口展示组件 => https://www.jianshu.com/p/0faf8e78d0a5
+【java小程序】zookeeper监听并自动更新 => https://blog.csdn.net/taojin12/article/details/85318877?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1
