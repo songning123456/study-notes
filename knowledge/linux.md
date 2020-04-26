@@ -80,3 +80,9 @@ lsof -i:7000
 
 * reboot
 ```
+
+#### windows上传文件到linux需转换为unix格式
+```
+yum install dos2unix (如果已经安装，则略过此步骤)
+dos2unix xxx.sh (xxx.sh是你需要转换的文件)
+```
