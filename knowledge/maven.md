@@ -34,3 +34,9 @@ yum install java-devel
 否则 bug:
 No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
 ```
+
+#### Connection to http://repo.maven.apache.org refused(添加阿里镜像)
+```
+* idea => file => settings => Build,execution,Deployment => Build Tools => Maven => Users setting file
+* 配置 config-file - maven - settings.xml
+```
