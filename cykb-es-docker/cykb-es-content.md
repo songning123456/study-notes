@@ -1,4 +1,4 @@
-cd /home/songning/pro/cykb-es-content
+cd /home/songning/pro/cykb-content
 git clone https://github.com/songning123456/cykb-es-content.git (USE HTTPS)
 cd cykb-es-content/
 mvn clean install -DskipTests

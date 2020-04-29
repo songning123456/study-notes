@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/songning/pro/cykb-es-content
+cd /home/songning/pro/cykb-content
 rm -rf content-1.0.0-SNAPSHOT.jar
 git clone https://github.com/songning123456/cykb-es-content.git
 cd cykb-es-content/
