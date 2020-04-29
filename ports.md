@@ -3,7 +3,7 @@
 *** 7080 uni-gateway (通过frp暴露在公网上)
 *** 7081 uni-config
 *** 7082 uni-register
-*** 7083 uni-security
+*** 7083 uni-authority
 
 * 8020 cykb-es-server
 * 8022 cykb-es-theft
