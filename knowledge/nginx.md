@@ -49,3 +49,8 @@
     跟着会去到这个/etc/nginx/目录下寻找相关页面，这个目录下面有errorpage这个目录，errorpage目录下面有
     error.html这个文件，这样一步一步就能找到自定义的错误页面了
 ```
+
+#### nginx重新刷新
+```
+nginx -s reload
+```
