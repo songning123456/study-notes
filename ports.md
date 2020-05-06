@@ -9,3 +9,10 @@
 * 8022 cykb-es-theft
 * 8024 cykb-es-time
 * 8026 cykb-es-content
+
+#### frp映射端口
+
+*** fwq 1xxxx <=> xxxx
+*** dev 2xxxx <=> xxxx
+*** pro 3xxxx <=> xxxx
+*** storage 4xxxx <=> xxxx
