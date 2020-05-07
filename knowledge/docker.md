@@ -78,3 +78,9 @@ docker -v
 docker logs xxx_container > xxx-log.txt
 sz xxx-log.txt
 ```
+
+#### docker 安装 spring initializr
+```
+docker pull pollyduan/start_spring_io
+docker run -tid --name spring-initializr -p 9999:8080 pollyduan/start_spring_io
+```
