@@ -54,3 +54,25 @@
 ```
 nginx -s reload
 ```
+
+#### centos7 安装 nginx
+```
+* yum -y install nginx (安装 nginx)
+* systemctl status nginx.service (查看nginx状态 未启动)
+* service nginx start (启动nginx服务)
+* systemctl status nginx.service (查看nginx的状态及进程与端口 启动后)
+* sudo systemctl enable nginx (设置开始启动)
+
+*** https://www.cnblogs.com/clubs/p/12346822.html(参考博客)
+*** 使用yum进行Nginx安装时，Nginx配置文件在/etc/nginx目录下
+    sudo systemctl enable nginx # 设置开机启动 
+    sudo service nginx start # 启动nginx服务
+    sudo service nginx stop # 停止nginx服务
+    sudo service nginx restart # 重启nginx服务
+    sudo service nginx reload # 重新加载配置，一般是在修改过nginx配置文件时使用。
+    systemctl status nginx.service #查看nginx的状态及进程与端口
+    netstat -antp | grep :80 #查看80端口被哪个服务占用
+    netstat -antp | grep : #查看所有端口占用情况
+    ps aux | grep nginx #查看nginx进程运行状态
+    nginx -V #查看nginx版本
+```
