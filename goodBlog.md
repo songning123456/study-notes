@@ -1,4 +1,5 @@
-sleepyOcean => https://me.csdn.net/stoneBridge1920
+*** sleepyOcean => https://me.csdn.net/stoneBridge1920; https://github.com/SleepyOcean
+
 汉字转拼音 => https://juejin.im/post/5d5b5e35e51d453bc523162f
 12个超好用的IntelliJ IDEA 插件 => https://juejin.im/post/5d5bbc05f265da03bf0f44fc
 Intellij Idea自动添加注释的方法 => https://www.jianshu.com/p/09139b425cc3
