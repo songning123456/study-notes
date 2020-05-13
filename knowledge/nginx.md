@@ -76,3 +76,11 @@ nginx -s reload
     ps aux | grep nginx #查看nginx进程运行状态
     nginx -V #查看nginx版本
 ```
+
+#### nginx: [error] open() "/var/run/nginx.pid" failed (2: No such file or directory)
+```
+cd /var/run
+vim nginx.pid
+nginx -c /etc/nginx/nginx.conf
+nginx -s reload
+```
