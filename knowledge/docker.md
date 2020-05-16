@@ -84,3 +84,16 @@ sz xxx-log.txt
 docker pull pollyduan/start_spring_io
 docker run -tid --name spring-initializr -p 9999:8080 pollyduan/start_spring_io
 ```
+
+#### docker 安装 nexus
+```
+mkdir nexus
+cd nexus
+mkdir nexus-data
+docker pull sonatype/nexus3
+docker run -d -p 8081:8081 --name nexus_container -v $PWD/nexus-data:/var/nexus-data --restart=always sonatype/nexus3
+http://ip:8081
+find / -name 'admin.password' => xxx/admin.password
+cd xxx
+cat admin.password
+```
