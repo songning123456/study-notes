@@ -87,6 +87,7 @@ docker run -tid --name spring-initializr -p 9999:8080 pollyduan/start_spring_io
 
 #### docker 安装 nexus
 ```
+*** 参考 https://www.cnblogs.com/niceyoo/p/11204143.html; https://blog.csdn.net/u012943767/article/details/79475718
 mkdir nexus
 cd nexus
 mkdir nexus-data
