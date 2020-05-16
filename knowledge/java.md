@@ -4,3 +4,9 @@
 
 主要是环境变量CLASSPATH 设置错误问题 => \ 分隔符 写成了 /
 ```
+
+#### Web server failed to start. Port xxxx was already in use
+```
+netstat -ano | findstr "xxxx"
+taskkill -PID xxxx -F
+```
