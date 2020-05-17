@@ -6,3 +6,16 @@ cmd窗口成功后在WebStorm中启动终端输入node -v仍然不是内部或�
 ***最重要的是以管理员方式启动WebStorm才可以使用终端！！！
 以普通用户的方式打开WebStorm无法使用终端执行node命令！！！***
 ```
+
+#### 如何打开项目前端页面
+```
+ npm run build
+ http-server dist
+ chrome -> '生成的ip' + '/index.html'
+ 
+ OR
+ 
+ npm run build
+ git commit & push
+ chrome -> https://songning123456.github.io/blog-front/dist/#/
+```
