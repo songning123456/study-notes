@@ -59,7 +59,7 @@ docker -v
 	-d -e ELASTICSEARCH_URL=http://192.168.0.108:9200 kibana:6.5.4
 ```
 
-#### docker 安装kafka
+#### docker 安装zookeeper,kafka
 ```
 * docker pull wurstmeister/zookeeper:latest
 * docker run -d --name zookeeper_container --restart=always -p 2181:2181 -v /etc/localtime:/etc/localtime wurstmeister/zookeeper
