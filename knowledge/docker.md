@@ -87,7 +87,7 @@ sz xxx-log.txt
 #### docker 安装 spring initializr
 ```
 docker pull pollyduan/start_spring_io
-docker run -tid --name spring-initializr -p 9999:8080 pollyduan/start_spring_io
+docker run -tid --name spring-io_container -p 9999:8080 pollyduan/start_spring_io
 ```
 
 #### docker 安装 nexus

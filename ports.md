@@ -16,3 +16,9 @@
 *** dev 2xxxx <=> xxxx
 *** pro 3xxxx <=> xxxx
 *** storage 4xxxx <=> xxxx
+
+#### sonin(129.211.184.78) 端口使用情况
+
+*** 8070 blog-front_container
+*** 8030 cykb-web_container
+*** 9999 spring-io_container
