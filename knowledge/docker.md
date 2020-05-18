@@ -65,17 +65,18 @@ docker -v
 * docker pull wurstmeister/zookeeper:latest
 * docker run -d --name zookeeper_container --restart=always --net=host -v /etc/localtime:/etc/localtime wurstmeister/zookeeper (占用port:2181)
 * docker pull wurstmeister/kafka:2.11-0.11.0.3
-* docker run -d --name kafka_container --restart=always --net=host -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.0.108:2181/kafka -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 -e KAFKA_LISTENERS=PLAINTEXT://localhost:9092 -v /etc/localtime:/etc/localtime wurstmeister/kafka:2.11-0.11.0.3
+* docker run -d --name kafka_container --restart=always --net=host -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.0.108:2181/kafka -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.0.108:9092 -e KAFKA_LISTENERS=PLAINTEXT://192.168.0.108:9092 -v /etc/localtime:/etc/localtime wurstmeister/kafka:2.11-0.11.0.3
 * docker exec -it kafka_container /bin/sh
 * cd /opt/kafka_2.11-0.11.0.3/bin
-* ./kafka-console-producer.sh --broker-list localhost:9092 --topic sun (测试 生产者)
-* ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sun --from-beginning (测试消费者)
+* ./kafka-console-producer.sh --broker-list 192.168.0.108:9092 --topic sun (测试 生产者)
+* ./kafka-console-consumer.sh --bootstrap-server 192.168.0.108:9092 --topic sun --from-beginning (测试消费者)
 
     注释: 
+    防火墙开放2181,9092端口
     -e KAFKA_BROKER_ID=0  在kafka集群中，每个kafka都有一个BROKER_ID来区分自己
     -e KAFKA_ZOOKEEPER_CONNECT=192.168.0.108:2181/kafka 配置zookeeper管理kafka的路径192.168.0.108:2181/kafka
-    -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092  把kafka的地址端口注册给zookeeper
-    -e KAFKA_LISTENERS=PLAINTEXT://localhost:9092 配置kafka的监听端口
+    -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.0.108:9092  把kafka的地址端口注册给zookeeper
+    -e KAFKA_LISTENERS=PLAINTEXT://192.168.0.108:9092 配置kafka的监听端口
 ```
 
 #### 下载docker日志
