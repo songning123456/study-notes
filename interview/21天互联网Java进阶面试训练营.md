@@ -399,19 +399,117 @@ public class Counter { 
 
 * 能聊聊volatile关键字的原理吗?
 
+```
+    (1) 禁止指令重排序
+    (2) 内存可见性
+```
+
 * 深入讲解volatile关键字的说明[深入到硬件级别]
 
 * 你知道指令重排以及happens-before原则是什么吗?
+
+```
+    * 指令重排
+    (1) 定义:
+    Java 语言规范规定了JVM线程内部维持顺序化语义，也就是说只要程序的最终结果等同于它在严格的顺序
+化环境下的结果，那么指令的执行顺序就可能与代码的顺序不一致。这个过程通过叫做指令的重排序。指令重
+排序存在的意义在于：JVM能够根据处理器的特性（CPU的多级缓存系统、多核处理器等）适当的重新排序机器
+指令，使机器指令更符合CPU的执行特点，最大限度的发挥机器的性能。
+    (2) 背景:
+    我们知道现代CPU的主频越来越高，与cache的交互次数也越来越多。当CPU的计算速度远远超过访问cache时，
+会产生cache wait，过多的cache wait就会造成性能瓶颈。针对这种情况，多数架构（包括X86）采用了一种将
+cache分片的解决方案，即将一块cache划分成互不关联地多个 slots (逻辑存储单元，又名 Memory Bank 或 
+Cache Bank)，CPU可以自行选择在多个 idle bank 中进行存取。这种 SMP 的设计，显著提高了CPU的并行处
+理能力，也回避了cache访问瓶颈。
+    一般 Memory bank 是按cache address来划分的。比如 偶数adress 0×12345000 分到 bank 0, 奇数address 0×12345100 分到 bank1
+    (3) 种类:
+    (a) 编译期重排。编译源代码时，编译器依据对上下文的分析，对指令进行重排序，以之更适合于CPU的并行执行。
+    (b) 运行期重排，CPU在执行过程中，动态分析依赖部件的效能，对指令做重排序优化。
+    
+    * happens-before原则
+    (1) 定义:
+    Java存储模型有一个happens-before原则，就是如果动作B要看到动作A的执行结果（无论A/B是否在同一个线程里面执行），
+那么A/B就需要满足happens-before关系。
+    (2) 要求:
+    (a) 同一个线程中的每个Action都happens-before于出现在其后的任何一个Action。
+    (b) 对一个监视器的解锁happens-before于每一个后续对同一个监视器的加锁。
+    (c) 对volatile字段的写入操作happens-before于每一个后续的同一个字段的读操作。
+    (d) Thread.start()的调用会happens-before于启动线程里面的动作。
+    (e) Thread中的所有动作都happens-before于其他线程检查到此线程结束或者Thread.join（）中返回或者Thread.isAlive()==false。
+    (f) 一个线程A调用另一个另一个线程B的interrupt（）都happens-before于线程A发现B被A中断（B抛出异常或者A检测到B的isInterrupted（）或者interrupted()）。
+    (g) 一个对象构造函数的结束happens-before与该对象的finalizer的开始
+    (h) 如果A动作happens-before于B动作，而B动作happens-before与C动作，那么A动作happens-before于C动作。
+    (3) 理解:
+    happens-before规则是用来判断一个动作对另一个动作是否可见的法则，它只是用来判断可见性的，而不是决定执行顺序的，就是说动作A
+和动作B 的执行顺序是可以通过指令重排发生变化的，而如果你要保证A和B的可见性关系，就必须采用其他控制手段（比如volatile修饰属性）
+来保证AB的执行顺序不被打乱，这样就能用happens-before规则来判断AB两个动作的可见性。
+```
 
 * volatile底层是如何基于内存屏障保证可见性和有序性的?
 
 * 说说你对Spring的IOC机制的理解可以吗?
 
+```
+    在平时的java应用开发中，我们要实现某一个功能或者说是完成某个业务逻辑时至少需要两个或以上的对象来协作完成，在没有使用Spring
+的时候，每个对象在需要使用他的合作对象时，自己均要使用像new object() 这样的语法来将合作对象创建出来，这个合作对象是由自己主动创
+建出来的，创建合作对象的主动权在自己手上，自己需要哪个合作对象，就主动去创建，创建合作对象的主动权和创建时机是由自己把控的，而这
+样就会使得对象间的耦合度高了，A对象需要使用合作对象B来共同完成一件事，A要使用B，那么A就对B产生了依赖，也就是A和B之间存在一种耦
+合关系，并且是紧密耦合在一起，而使用了Spring之后就不一样了，创建合作对象B的工作是由Spring来做的，Spring创建好B对象，然后存储到
+一个容器里面，当A对象需要使用B对象时，Spring就从存放对象的那个容器里面取出A要使用的那个B对象，然后交给A对象使用，至于Spring是如
+何创建那个对象，以及什么时候创建好对象的，A对象不需要关心这些细节问题(你是什么时候生的，怎么生出来的我可不关心，能帮我干活就行)，
+A得到Spring给我们的对象之后，两个人一起协作完成要完成的工作即可。所以控制反转IoC(Inversion of Control)是说创建对象的控制权进行
+转移，以前创建对象的主动权和创建时机是由自己把控的，而现在这种权力转移到第三方，比如转移交给了IoC容器，它就是一个专门用来创建对象
+的工厂，你要什么对象，它就给你什么对象，有了 IoC容器，依赖关系就变了，原先的依赖关系就没了，它们都依赖IoC容器了，通过IoC容器来建
+立它们之间的关系。
+```
+
 * 说说你对Spring的AOP机制的理解可以吗?
+
+```
+    AOP（Aspect Orient Programming），一般称为面向切面编程，作为面向对象的一种补充，用于处理系统中分布于各个模块的横切关注点，比如事务
+管理、日志、缓存等等。AOP实现的关键在于AOP框架自动创建的AOP代理，AOP代理主要分为静态代理和动态代理，静态代理的代表为AspectJ；而动态
+代理则以Spring AOP为代表。静态代理是编译期实现，动态代理是运行期实现，可想而知前者拥有更好的性能。
+    静态代理是编译阶段生成AOP代理类，也就是说生成的字节码就织入了增强后的AOP对象；动态代理则不会修改字节码，而是在内存中临时生成一个AOP对
+象，这个AOP对象包含了目标对象的全部方法，并且在特定的切点做了增强处理，并回调原对象的方法。
+    Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理。JDK动态代理通过反射来接收被代理的类，并且要求被代理的类必须实现一个
+接口。JDK动态代理的核心是InvocationHandler接口和Proxy类。如果目标类没有实现接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB
+(Code Generation Library)，是一个代码生成的类库，可以在运行时动态的生成某个类的子类，注意，CGLIB是通过继承的方式做的动态代理，因此如果某
+个类被标记为final，那么它是无法使用CGLIB做动态代理的，诸如private的方法也是不可以作为切面的。
+```
 
 * 了解过cglib动态代理吗?他和jdk动态代理的区别什么?
 
+```
+    * jdk动态代理
+    需要有顶层接口才能使用，但是在只有顶层接口的时候也可以使用，常见是mybatis的mapper文件是代理。使用反射完成。使用了动态生成字节码技术。
+    * cglib动态代理
+    可以直接代理类，使用字节码技术，不能对 final 类进行继承。使用了动态生成字节码技术。
+```
+
 * 能说说Spring中的Bean是线程安全的吗?
+
+```
+    * singleton
+    单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例
+    * prototype
+    原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例
+    * request
+    对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效
+    * session
+    对于每次HTTP Session，使用session定义的Bean豆浆产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效
+    * globalsession
+    每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，
+该作用域才有效
+
+    其中比较常用的是singleton和prototype两种作用域。对于singleton作用域的Bean，每次请求该Bean都将获得相同的实例。容器负责跟踪Bean实例的状态，负责维护
+Bean实例的生命周期行为；如果一个Bean被设置成prototype作用域，程序每次请求该id的Bean，Spring都会新建一个Bean实例，然后返回给程序。在这种情况下，Spring
+容器仅仅使用new 关键字创建Bean实例，一旦创建成功，容器不在跟踪实例，也不会维护Bean实例的状态。如果不指定Bean的作用域，Spring默认使用singleton作用域。
+Java在创建Java实例时，需要进行内存申请；销毁实例时，需要完成垃圾回收，这些工作都会导致系统开销的增加。因此，prototype作用域Bean的创建、销毁代价比较大。
+而singleton作用域的Bean实例一旦创建成功，可以重复使用。因此，除非必要，否则尽量避免将Bean被设置成prototype作用域。
+
+    spring 管理的 bean 的线程安全跟 bean 的创建作用域和 bean 所在的使用环境是否存在竞态条件有关，spring 并不能保证 bean 的线程安全。
+
+```
 
 * Spring的事务实现原理是什么?能聊聊你对事物传播机制的...
 
