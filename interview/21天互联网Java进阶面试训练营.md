@@ -233,6 +233,16 @@ static final int hash(Object key) {
 
 * ConcurrentHashMap实现线程安全的底层原理到底是什么?
 
+```
+  在ConcurrentHashMap没有出现以前，jdk使用hashtable来实现线程安全，但是hashtable是将整个hash表锁住，所以效率很低下。
+ConcurrentHashMap将数据分别放到多个Segment中，默认16个，每一个Segment中又包含了多个HashEntry列表数组，对于一个key，
+需要经过三次hash操作，才能最终定位这个元素的位置，这三次hash分别为:
+    对于一个key，先进行一次hash操作，得到hash值h1，也即h1 = hash1(key)；
+    将得到的h1的高几位进行第二次hash，得到hash值h2，也即h2 = hash2(h1高几位)，通过h2能够确定该元素的放在哪个Segment；
+    将得到的h1进行第三次hash，得到hash值h3，也即h3 = hash3(h1)，通过h3能够确定该元素放置在哪个HashEntry。
+每一个Segment都拥有一个锁，当进行写操作时，只需要锁定一个Segment，而其它Segment中的数据是可以访问的。
+```
+
 * 你对JDK中的AQS理解吗?AQS的实现原理是什么?
 
 * 说说线程池的底层工作原理可以吗?
