@@ -115,9 +115,8 @@
 
 * 为什么在Java面试中一定会深入考察HashMap?
 
+    <https://blog.csdn.net/qq116165600/article/details/103361385>
 ```
-*** https://blog.csdn.net/qq116165600/article/details/103361385
-
     HashMap作为一个键值对(key-value)的常见集合，在整个java的使用过程中都起着举足轻重的作用。
 比如从DB中取值、数据的加工、数据回传给前端、数据转换为json等都可能使用到HashMap；且HashMap
 作为一个可以允许空键值对的集合，也能实现自动的扩容，扩容的参数值为0.75，达到后自动扩容一倍，
@@ -139,9 +138,8 @@
 
 * JDK1.8中对hash算法和寻址算法是如何优化的?
 
+    <https://www.cnblogs.com/Edward-Wang/p/12362922.html>
 ```
-*** https://www.cnblogs.com/Edward-Wang/p/12362922.html
-
 static final int hash(Object key) {
         int h;
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
@@ -188,9 +186,8 @@ static final int hash(Object key) {
 
 * 高并发情况下，HashMap会出现死锁吗？[补充]
 
+    <https://coolshell.cn/articles/9606.html>
 ```
-*** https://coolshell.cn/articles/9606.html
-
     由于HashMap的容量是有限的，如果HashMap中的数组的容量很小，假如只有2个，那么如果要放进10个keys的话，碰撞就会非常频繁，
 此时一个O(1)的查找算法，就变成了链表遍历，性能变成了O(n)，这是Hash表的缺陷。为了解决这个问题,HashMap设计了一个阈值，
 其值为容量的0.75，当HashMap所用容量超过了阈值后，就会自动扩充其容量。在多线程的情况下，当重新调整HashMap大小的时候，
@@ -207,9 +204,8 @@ static final int hash(Object key) {
 
 * 能聊聊你对CAS的理解以及其底层原理可以吗?
 
+    <https://blog.csdn.net/hanjungua8144/article/details/87881987>
 ```
-*** https://blog.csdn.net/hanjungua8144/article/details/87881987
-
     CAS会操作3个数字，当前内存中的值，旧的预期值，新的修改值，只有当旧的预期值跟内存中的值一样的时候，才会将内存中的值修改为新的修
 改值。举个例子吧，比如int a = 3，这是内存中的当前值，然后你CAS（3, 5），第一个是旧的预期值，如果3和a是一样的，那么就将a修改为5。
 其实吧，这里比较关键的一点就是cpu的compareAndSwap操作的原理是啥，以CPU（Intel X86）来举个例子。这块底层指令，会根据当前处理器
@@ -513,9 +509,8 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * Spring的事务实现原理是什么?能聊聊你对事物传播机制的...
 
+    [Spring事务传播机制详解](https://blog.csdn.net/qq_26323323/article/details/81908955)
 ```
-*** https://blog.csdn.net/qq_26323323/article/details/81908955
-
     * @Transactional(propagation=Propagation.REQUIRED) (默认)
     如果有事务则加入事务，如果没有事务，则创建一个新的(默认值)
     * @Transactional(propagation=Propagation.NOT_SUPPORTED)
@@ -532,7 +527,36 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能画一张图说说Spring Boot的核心架构吗?
 
+    [Spring](/interview/link/Spring.pdf)
+```
+(1) 独立运行Spring项目
+    Spring boot 可以以jar包形式独立运行，运行一个Spring Boot项目只需要通过java -jar xx.jar来运行。
+(2) 内嵌servlet容器
+    Spring Boot可以选择内嵌Tomcat、jetty或者Undertow,这样我们无须以war包形式部署项目。
+(3) 提供starter简化Maven配置
+    spring提供了一系列的start pom来简化Maven的依赖加载，例如，当你使用了spring-boot-starter-web，会自动加入依赖包。
+(4) 自动装配Spring 
+    SpringBoot会根据在类路径中的jar包，类、为jar包里面的类自动配置Bean，这样会极大地减少我们要使用的配置。当然，SpringBoot只考虑大多数的开发场景，
+并不是所有的场景，若在实际开发中我们需要配置Bean，而SpringBoot灭有提供支持，则可以自定义自动配置。
+(5) 准生产的应用监控
+    SpringBoot提供基于http ssh telnet对运行时的项目进行监控。
+(6) 无代码生产和xml配置
+    SpringBoot不是借助与代码生成来实现的，而是通过条件注解来实现的，这是Spring4.x提供的新特性。
+```
+
 * 能画一张图说说Spring的核心架构吗?
+
+    [Spring](/interview/link/Spring.pdf)
+```
+(1) 实例化bean
+(2) 设置对象属性(依赖注入)
+(3) 处理Aware接口
+(4) BeanPostProcessor
+(5) InitalizingBean与init-method
+(6) BeanPostProcessor
+(7) DisposableBean
+(8) destroy-method
+```
 
 * 能说说Spring中都使用了哪些设计模式吗?
 
