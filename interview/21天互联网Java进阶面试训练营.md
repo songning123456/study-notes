@@ -513,6 +513,23 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * Spring的事务实现原理是什么?能聊聊你对事物传播机制的...
 
+```
+*** https://blog.csdn.net/qq_26323323/article/details/81908955
+
+    * @Transactional(propagation=Propagation.REQUIRED) (默认)
+    如果有事务则加入事务，如果没有事务，则创建一个新的(默认值)
+    * @Transactional(propagation=Propagation.NOT_SUPPORTED)
+    Spring不为当前方法开启事务，相当于没有事务,每条执行语句单独执行，单独提交
+    * @Transactional(propagation=Propagation.REQUIRES_NEW)
+    不管是否存在事务，都创建一个新的事务，原来的方法挂起，新的方法执行完毕后，继续执行老的事务
+    * @Transactional(propagation=Propagation.MANDATORY)
+    MANDATORY必须在已有事务下被调用，否则报错;NOT_SUPPORTED执行数据库层面的事务操作，故当前测试中，insert方法成功执行，delete方法的抛错并不影响insert方法的执行
+    * @Transactional(propagation=Propagation.SUPPORTS)
+    SUPPORTS类型的事务传播机制，是否使用事务取决于调用方法是否有事务，如果有则直接用，如果没有则不使用事务
+    * @Transactional(propagation=Propagation.NESTED)
+    如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与REQUIRED类似的操作
+```
+
 * 能画一张图说说Spring Boot的核心架构吗?
 
 * 能画一张图说说Spring的核心架构吗?
