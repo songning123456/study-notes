@@ -244,15 +244,15 @@ ConcurrentHashMap将数据分别放到多个Segment中，默认16个，每一个
 * 说说线程池的底层工作原理可以吗?
 
 ```
-    (1) 在创建了线程池后，等待提交过来的任务请求。
-    (2) 在调用execute（）方法添加一个请求任务时，线程池会做如下判断：
-        (a) 如果正在运行的线程数量小于corePoolSize，那么马上创建线程运行这个任务；
-        (b) 如果正在运行的线程数量大于或等于corePoolSize，那么将这个任务放入队列；
-        (c) 如果这时候队列满了且正在运行的线程数量还小于maximumPoolSize，那么还是要创建非核心线程立刻运行这个任务：
-        (d) 如果队列满了且正在运行的线程数量大于或等于maximumPoolSize,那么线程池会启动饱和拒绝策略来执行。
-    (3) 当一个线程完成任务时，它会从队列中去下一个任务来执行。
-    (4) 当一个线程无事可做超过一定的时间（keepAliveTime）时，线程池会判断：
-    如果当前运行的线程数大于corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后它最终会收缩到corePoolSize的大小。
+(1) 在创建了线程池后，等待提交过来的任务请求。
+(2) 在调用execute（）方法添加一个请求任务时，线程池会做如下判断：
+    (a) 如果正在运行的线程数量小于corePoolSize，那么马上创建线程运行这个任务；
+    (b) 如果正在运行的线程数量大于或等于corePoolSize，那么将这个任务放入队列；
+    (c) 如果这时候队列满了且正在运行的线程数量还小于maximumPoolSize，那么还是要创建非核心线程立刻运行这个任务：
+    (d) 如果队列满了且正在运行的线程数量大于或等于maximumPoolSize,那么线程池会启动饱和拒绝策略来执行。
+(3) 当一个线程完成任务时，它会从队列中去下一个任务来执行。
+(4) 当一个线程无事可做超过一定的时间（keepAliveTime）时，线程池会判断：
+如果当前运行的线程数大于corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后它最终会收缩到corePoolSize的大小。
 ```
 
 * 那你再说说线程池的核心配置参数都是干什么的?平时我们...
@@ -262,38 +262,38 @@ ConcurrentHashMap将数据分别放到多个Segment中，默认16个，每一个
 在执行完毕之后都会被销毁，这样频繁的创建和销毁线程是一件很浪费资源到的事情。那么，有没有什么办法解决这个问题呢?通过创建线程池就
 可以解决这个问题。通过线程池创建的线程执行完毕之后并不会销毁，而是会回到线程池继续重复利用，执行其他任务。
 
-    (1) 核心参数
-    * corePoolSize(核心线程数)
+* 核心参数
+    (1) corePoolSize(核心线程数)
         (a) 核心线程会一直存在，即使没有任务执行；
         (b) 当线程数小于核心线程数的时候，即使有空闲线程，也会一直创建线程直到达到核心线程数；
         (c) 设置allowCoreThreadTimeout=true（默认false）时，核心线程会超时关闭。
-    * queueCapacity(任务队列容量)
-        也叫阻塞队列，当核心线程都在运行，此时再有任务进来，会进入任务队列，排队等待线程执行。
-    * maxPoolSize(最大线程数)
+    (2) queueCapacity(任务队列容量)
+    也叫阻塞队列，当核心线程都在运行，此时再有任务进来，会进入任务队列，排队等待线程执行。
+    (3) maxPoolSize(最大线程数)
         (a) 线程池里允许存在的最大线程数量；
         (b) 当任务队列已满，且线程数量大于等于核心线程数时，会创建新的线程执行任务；
         (c) 线程池里允许存在的最大线程数量。当任务队列已满，且线程数量大于等于核心线程数时，会创建新的线程执行任务。
-    * keepAliveTime(线程空闲时间)
+    (4) keepAliveTime(线程空闲时间)
         (a) 当线程空闲时间达到keepAliveTime时，线程会退出（关闭），直到线程数等于核心线程数；
         (b) 如果设置了allowCoreThreadTimeout=true，则线程会退出直到线程数等于零。
-    * allowCoreThreadTimeout(允许核心线程超时)
-    * rejectedExecutionHandler(任务拒绝处理器)
+    (5) allowCoreThreadTimeout(允许核心线程超时)
+    (6) rejectedExecutionHandler(任务拒绝处理器)
         (a) 当线程数量达到最大线程数，且任务队列已满时，会拒绝任务；
         (b) 调用线程池shutdown()方法后，会等待执行完线程池的任务之后，再shutdown()。如果在调用了shutdown()方法和线程池真正shutdown()之间提交任务，会拒绝新任务。
 
-    (2) 线程池参数默认值
-        corePoolSize = 1
-        queueCapacity = Integer.MAX_VALUE
-        maxPoolSize = Integer.MAX_VALUE
-        keepAliveTime = 60秒
-        allowCoreThreadTimeout = false
-        rejectedExecutionHandler = AbortPolicy()
+* 线程池参数默认值
+    corePoolSize = 1
+    queueCapacity = Integer.MAX_VALUE
+    maxPoolSize = Integer.MAX_VALUE
+    keepAliveTime = 60秒
+    allowCoreThreadTimeout = false
+    rejectedExecutionHandler = AbortPolicy()
 
-    (3) ThreadPoolExecutor(线程池)执行顺序
-        当线程数小于核心线程数时，会一直创建线程直到线程数等于核心线程数；
-        当线程数等于核心线程数时，新加入的任务会被放到任务队列等待执行；
-        当任务队列已满，又有新的任务时，会创建线程直到线程数量等于最大线程数；
-        当线程数等于最大线程数，且任务队列已满时，新加入任务会被拒绝。
+* ThreadPoolExecutor(线程池)执行顺序
+    当线程数小于核心线程数时，会一直创建线程直到线程数等于核心线程数；
+    当线程数等于核心线程数时，新加入的任务会被放到任务队列等待执行；
+    当任务队列已满，又有新的任务时，会创建线程直到线程数量等于最大线程数；
+    当线程数等于最大线程数，且任务队列已满时，新加入任务会被拒绝。
 ```
 
 * 如果在线程中使用无界阻塞队列会发生什么问题?
@@ -352,17 +352,17 @@ ThreadPoolExecutor采取上述步骤的总体设计思路，是为了在执行ex
 * 你知道Java内存模型中的原子性,有序性,可见性是什么...
 
 ```
-    * 可见性:是指线程之间的可见性，一个线程修改的状态对另一个线程是可见的，也就是一个线程修改的结果。另一个线程马上就能看到
+* 可见性:是指线程之间的可见性，一个线程修改的状态对另一个线程是可见的，也就是一个线程修改的结果。另一个线程马上就能看到
     如：用volatile修饰的变量，就会具有可见性。volatile修饰的变量不允许线程内部缓存和重排序，即直接修改内存。所以对其
 他线程是可见的volatile只能让被他修饰内容具有可见性，但不能保证它具有原子性。在 Java 中 volatile、synchronized 和 
 final 实现可见性
 
-    * 原子性:原子是世界上的最小单位，具有不可分割性
+* 原子性:原子是世界上的最小单位，具有不可分割性
     在 Java 中 synchronized 和在 lock、unlock 中操作保证原子性。
 
-    * 有序性:Java 语言提供了 volatile 和 synchronized 两个关键字来保证线程之间操作的有序性
+* 有序性:Java 语言提供了 volatile 和 synchronized 两个关键字来保证线程之间操作的有序性
     volatile 是因为其本身包含“禁止指令重排序”的语义，synchronized 是由“一个变量在同一个时刻只允许一条线程对其进行 lock
- 操作”这条规则获得的，此规则决定了持有同一个对象锁的两个同步块只能串行执行。
+操作”这条规则获得的，此规则决定了持有同一个对象锁的两个同步块只能串行执行。
 
 volatile关键字用法
 public class Counter { 
@@ -396,8 +396,8 @@ public class Counter { 
 * 能聊聊volatile关键字的原理吗?
 
 ```
-    (1) 禁止指令重排序
-    (2) 内存可见性
+(1) 禁止指令重排序
+(2) 内存可见性
 ```
 
 * 深入讲解volatile关键字的说明[深入到硬件级别]
@@ -405,7 +405,7 @@ public class Counter { 
 * 你知道指令重排以及happens-before原则是什么吗?
 
 ```
-    * 指令重排
+* 指令重排
     (1) 定义:
     Java 语言规范规定了JVM线程内部维持顺序化语义，也就是说只要程序的最终结果等同于它在严格的顺序
 化环境下的结果，那么指令的执行顺序就可能与代码的顺序不一致。这个过程通过叫做指令的重排序。指令重
@@ -422,7 +422,7 @@ Cache Bank)，CPU可以自行选择在多个 idle bank 中进行存取。这种 
     (a) 编译期重排。编译源代码时，编译器依据对上下文的分析，对指令进行重排序，以之更适合于CPU的并行执行。
     (b) 运行期重排，CPU在执行过程中，动态分析依赖部件的效能，对指令做重排序优化。
     
-    * happens-before原则
+* happens-before原则
     (1) 定义:
     Java存储模型有一个happens-before原则，就是如果动作B要看到动作A的执行结果（无论A/B是否在同一个线程里面执行），
 那么A/B就需要满足happens-before关系。
@@ -476,24 +476,24 @@ A得到Spring给我们的对象之后，两个人一起协作完成要完成的�
 * 了解过cglib动态代理吗?他和jdk动态代理的区别什么?
 
 ```
-    * jdk动态代理
+* jdk动态代理
     需要有顶层接口才能使用，但是在只有顶层接口的时候也可以使用，常见是mybatis的mapper文件是代理。使用反射完成。使用了动态生成字节码技术。
-    * cglib动态代理
+* cglib动态代理
     可以直接代理类，使用字节码技术，不能对 final 类进行继承。使用了动态生成字节码技术。
 ```
 
 * 能说说Spring中的Bean是线程安全的吗?
 
 ```
-    * singleton
+* singleton
     单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例
-    * prototype
+* prototype
     原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例
-    * request
+* request
     对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效
-    * session
+* session
     对于每次HTTP Session，使用session定义的Bean豆浆产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效
-    * globalsession
+* globalsession
     每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，
 该作用域才有效
 
@@ -511,23 +511,23 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
     [Spring事务传播机制详解](https://blog.csdn.net/qq_26323323/article/details/81908955)
 ```
-    * @Transactional(propagation=Propagation.REQUIRED) (默认)
+* @Transactional(propagation=Propagation.REQUIRED) (默认)
     如果有事务则加入事务，如果没有事务，则创建一个新的(默认值)
-    * @Transactional(propagation=Propagation.NOT_SUPPORTED)
+* @Transactional(propagation=Propagation.NOT_SUPPORTED)
     Spring不为当前方法开启事务，相当于没有事务,每条执行语句单独执行，单独提交
-    * @Transactional(propagation=Propagation.REQUIRES_NEW)
+* @Transactional(propagation=Propagation.REQUIRES_NEW)
     不管是否存在事务，都创建一个新的事务，原来的方法挂起，新的方法执行完毕后，继续执行老的事务
-    * @Transactional(propagation=Propagation.MANDATORY)
+* @Transactional(propagation=Propagation.MANDATORY)
     MANDATORY必须在已有事务下被调用，否则报错;NOT_SUPPORTED执行数据库层面的事务操作，故当前测试中，insert方法成功执行，delete方法的抛错并不影响insert方法的执行
-    * @Transactional(propagation=Propagation.SUPPORTS)
+* @Transactional(propagation=Propagation.SUPPORTS)
     SUPPORTS类型的事务传播机制，是否使用事务取决于调用方法是否有事务，如果有则直接用，如果没有则不使用事务
-    * @Transactional(propagation=Propagation.NESTED)
+* @Transactional(propagation=Propagation.NESTED)
     如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与REQUIRED类似的操作
 ```
 
 * 能画一张图说说Spring Boot的核心架构吗?
 
-    [Spring](/interview/link/Spring.pdf)
+    [Spring](/interview/link/1.pdf)
 ```
 (1) 独立运行Spring项目
     Spring boot 可以以jar包形式独立运行，运行一个Spring Boot项目只需要通过java -jar xx.jar来运行。
@@ -546,7 +546,7 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能画一张图说说Spring的核心架构吗?
 
-    [Spring](/interview/link/Spring.pdf)
+    [1](/interview/link/1.pdf)
 ```
 (1) 实例化bean
 (2) 设置对象属性(依赖注入)
@@ -559,6 +559,8 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 ```
 
 * 能说说Spring中都使用了哪些设计模式吗?
+
+    [2](/interview/link/2.pdf)
 
 * 能画一张图说说Spring Web MVC的核心架构吗?
 
