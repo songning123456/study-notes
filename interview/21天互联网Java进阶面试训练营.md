@@ -785,9 +785,13 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 我们一般到底用Zookeeper来干什么事儿?
 
+    [](/interview/link/我们一般到底用Zookeeper来干什么事儿.pdf)
+
 * 有哪些开源的分布式系统中使用了Zookeeper?
 
 * 为什么我们在分布式系统架构中需要使用Zookeeper集群?
+
+    [](/interview/link/为什么我们在分布式系统架构中需要使用Zookeeper集群.pdf)
 
 * Zookeeper为了满足分布式系统的需求要有哪些特点?
 
