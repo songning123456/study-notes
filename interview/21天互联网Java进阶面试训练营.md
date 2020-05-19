@@ -1,4 +1,4 @@
-[JAVA核心面试知识整理](/interview/link/0.pdf)
+[JAVA核心面试知识整理](/interview/link/JAVA核心面试知识整理.pdf)
 
 #### 第二季
 
@@ -529,7 +529,7 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能画一张图说说Spring Boot的核心架构吗?
 
-    [Spring](/interview/link/1.pdf)
+    [Spring](/interview/link/能画一张图说说Spring的核心架构吗.pdf)
 ```
 (1) 独立运行Spring项目
     Spring boot 可以以jar包形式独立运行，运行一个Spring Boot项目只需要通过java -jar xx.jar来运行。
@@ -548,7 +548,7 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能画一张图说说Spring的核心架构吗?
 
-    [1](/interview/link/1.pdf)
+    [](/interview/link/能画一张图说说Spring的核心架构吗.pdf)
 ```
 (1) 实例化bean
 (2) 设置对象属性(依赖注入)
@@ -562,7 +562,7 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能说说Spring中都使用了哪些设计模式吗?
 
-    [2](/interview/link/2.pdf)
+    [](/interview/link/能说说Spring中都使用了哪些设计模式吗.pdf)
 
 * 能画一张图说说Spring Web MVC的核心架构吗?
 
@@ -583,7 +583,7 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 你知道JVM是如何运行起来的吗?我们的对象是如何分配...
 
-    [3](/interview/link/3.pdf)
+    [](/interview/link/你知道JVM是如何运行起来的吗.pdf)
 
 * 说说JVM在哪些情况下会触发垃圾回收可以吗?
 
@@ -622,27 +622,28 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 你能聊聊TCP/IP四种网络模型吗?OSI七层网络模型也说一下...
 
-    [4](/interview/link/4.pdf)
+    [](/interview/link/你能聊聊TCPIP四种网络模型吗.pdf)
     <https://blog.csdn.net/qq_22343483/article/details/104165180>
 
 * 浏览器请求www.baidu.com的全过程大概是怎样的?...
 
-    [4](/interview/link/4.pdf)
-    <https://blog.csdn.net/qq_22343483/article/details/104165180>
+```
+    同上
+```
 
 * 画一下TCP三次握手流程图?为啥是三次而不是二次或者...
 
 * 聊聊HTTP协议的工作原理!
 
-    [5](/interview/link/5.pdf)
+    [](/interview/link/聊聊HTTP协议的工作原理.pdf)
 
 * 聊聊HTTPS的工作原理?为啥用HTTPS就可以加密通信?
 
-    [6](/interview/link/6.pdf)
+    [](/interview/link/聊聊HTTPS的工作原理.pdf)
 
 * 聊聊http的长连接的工作原理到底是啥?
 
-    [7](/interview/link/7.pdf)
+    [](/interview/link/聊聊http的长连接的工作原理到底是啥.pdf)
     <https://www.cnblogs.com/fyql/p/12272918.html>
 ```
     http本身没什么所谓的长连接短连接之说，其实说白了都是http下层的tcp连接是长连接还是短连接，tcp连接保持长连接，那么多个http请求和
@@ -654,40 +655,45 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * MYSQL,MyISAM和InnoDB存储引擎的区别是啥?
 
-    [8](/interview/link/8.pdf)
+    [](/interview/link/MyISAM和InnoDB存储引擎的区别是啥.pdf)
 
 * 聊聊MySQL的索引实现原理?各种索引你们平时都怎么用...
 
-    [9](/interview/link/9.pdf)
+    [](/interview/link/聊聊MySQL的索引实现原理.pdf)
 
 * 你能说说事务的几个特性是啥?有哪几种隔离级别?
 
-    [10](/interview/link/10.pdf)
+    [](/interview/link/你能说说事务的几个特性是啥.pdf)
 
 * 你能说说MySQL数据库锁的实现原理吗?如果死锁了咋办?
 
-    [11](/interview/link/11.pdf)
+    [](/interview/link/你能说说MySQL数据库锁的实现原理吗.pdf)
 
 * MySQL的SQL调优一般都有哪些手段?你们一般怎么做?
 
-    [12](/interview/link/12.pdf)
+    [](/interview/link/MySQL的SQL调优一般都有哪些手段.pdf)
     <https://blog.csdn.net/zhangbijun1230/article/details/81608252>
 
 * 聊聊Socket的工作原理?Socket和TCP IP之间是啥关系?
 
-    [13](/interview/link/13.pdf)
+    [](/interview/link/聊聊Socket的工作原理.pdf)
     <https://blog.csdn.net/klp098/article/details/51182721>
 
 * 进程之间是如何通信的?线程间又如何切换的?
 
 * 你能聊聊BIO,NIO,AIO分别都是啥?有什么区别?
 
-    [14](/interview/link/14.pdf)
+    [](/interview/link/你能聊聊BIO.pdf)
     <https://www.cnblogs.com/blackjoyful/p/11534985.html>
 
 * 线上服务CPU100%了!该怎么排查,定位和解决?
 
+    [](/interview/link/线上服务CPU100%25了.pdf)
+    <https://blog.csdn.net/weixin_38827340/article/details/85311247>
+
 * 线上机器的一个进程用kill命令杀不死该怎么办?磁盘空间快...
+
+    [](/interview/link/线上机器的一个进程用kill命令杀不死该怎么办.pdf)
 
 * 关于后续深入硬件级讲解volatile,synchronized,CAS底...
 
@@ -789,6 +795,11 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * Zookeeper集群的三种角色: Leader,Follower,...
 
+    [](/interview/link/Zookeeper集群的三种角色.pdf)
+
 * 客户端与Zookeeper之间的长连接和会话是什么?
+
+    [](/interview/link/客户端与Zookeeper之间的长连接和会话是什么.pdf)
+    <https://blog.csdn.net/zhangjikuan/article/details/72059124>
 
 
