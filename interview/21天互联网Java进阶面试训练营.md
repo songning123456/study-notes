@@ -675,6 +675,9 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 聊聊Socket的工作原理?Socket和TCP IP之间是啥关系?
 
+    [13](/interview/link/13.pdf)
+    <https://blog.csdn.net/klp098/article/details/51182721>
+
 * 进程之间是如何通信的?线程间又如何切换的?
 
 * 你能聊聊BIO,NIO,AIO分别都是啥?有什么区别?
