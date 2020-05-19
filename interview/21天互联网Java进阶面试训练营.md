@@ -654,13 +654,24 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * MYSQL,MyISAM和InnoDB存储引擎的区别是啥?
 
+    [8](/interview/link/8.pdf)
+
 * 聊聊MySQL的索引实现原理?各种索引你们平时都怎么用...
+
+    [9](/interview/link/9.pdf)
 
 * 你能说说事务的几个特性是啥?有哪几种隔离级别?
 
+    [10](/interview/link/10.pdf)
+
 * 你能说说MySQL数据库锁的实现原理吗?如果死锁了咋办?
 
+    [11](/interview/link/11.pdf)
+
 * MySQL的SQL调优一般都有哪些手段?你们一般怎么做?
+
+    [12](/interview/link/12.pdf)
+    <https://blog.csdn.net/zhangbijun1230/article/details/81608252>
 
 * 聊聊Socket的工作原理?Socket和TCP IP之间是啥关系?
 
