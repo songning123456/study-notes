@@ -622,13 +622,23 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 你能聊聊TCP/IP四种网络模型吗?OSI七层网络模型也说一下...
 
+    [4](/interview/link/4.pdf)
+    <https://blog.csdn.net/qq_22343483/article/details/104165180>
+
 * 浏览器请求www.baidu.com的全过程大概是怎样的?...
+
+    [4](/interview/link/4.pdf)
+    <https://blog.csdn.net/qq_22343483/article/details/104165180>
 
 * 画一下TCP三次握手流程图?为啥是三次而不是二次或者...
 
 * 聊聊HTTP协议的工作原理!
 
+    [5](/interview/link/5.pdf)
+
 * 聊聊HTTPS的工作原理?为啥用HTTPS就可以加密通信?
+
+    [6](/interview/link/6.pdf)
 
 * 聊聊http的长连接的工作原理到底是啥?
 
