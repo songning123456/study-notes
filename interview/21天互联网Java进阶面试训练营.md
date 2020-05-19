@@ -682,6 +682,9 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 你能聊聊BIO,NIO,AIO分别都是啥?有什么区别?
 
+    [14](/interview/link/14.pdf)
+    <https://www.cnblogs.com/blackjoyful/p/11534985.html>
+
 * 线上服务CPU100%了!该怎么排查,定位和解决?
 
 * 线上机器的一个进程用kill命令杀不死该怎么办?磁盘空间快...
