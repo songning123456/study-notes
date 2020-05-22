@@ -122,7 +122,11 @@ under the License.
           <password>repopwd</password>
         </server>
         -->
-
+        <server>
+            <id>sonin</id>
+            <username>sonin</username>
+            <password>sonin</password>
+        </server>
         <server>
             <id>oceanmaven</id>
             <username>sleepyocean</username>
