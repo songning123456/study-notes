@@ -29,3 +29,4 @@ vue.js仿微信聊天窗口展示组件 => https://www.jianshu.com/p/0faf8e78d0a
 【java小程序】zookeeper监听并自动更新 => https://blog.csdn.net/taojin12/article/details/85318877?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1
 httpclient 实现文件上传中转 => https://www.cnblogs.com/sy646et/p/7266017.html
 Spring-Kafka史上最强入门教程 => https://www.jianshu.com/c/0c9d83802b0c
+Spring Cloud Config(统一配置中心服务端和客户端) => https://www.jianshu.com/p/4a34f791a655
