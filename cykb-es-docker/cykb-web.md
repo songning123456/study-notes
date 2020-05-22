@@ -5,8 +5,8 @@
 * cd ...(项目路径)\unpackage\dist\build
 * tar -zcvf h5.tar.gz h5
 	// linux
-* mkdir cykb-web
-* cd cykb-web
+* mkdir cykb-web-dir
+* cd cykb-web-dir
 * rz (h5.tar.gz)
 * tar -zxvf h5.tar.gz
 * vim Dockerfile

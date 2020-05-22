@@ -1,4 +1,4 @@
-cd /root/cykb-web
+cd /root/cykb-web-dir
 rm -rf h5
 rm -rf h5.tar.gz
 rz
