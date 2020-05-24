@@ -8,6 +8,36 @@
 
 * 你们的系统使用了哪种服务框架?为什么要这样技术...
 
+```
+* Spring Cloud & Dubbo对比
+    (1) 并发性能
+        Spring Cloud: 使用的是http协议，性能与dubbo对比稍微差点
+        Dubbo: 是一款优秀的RPC框架，并发能力比springcloud强
+    (2) 注册中心
+        Spring Cloud: 有全家桶配置中心。eurake nacos,亦可以选择zookeeper
+        Dubbo: 一般选择zookeeper	
+    (3) 分布式配置中心
+        Spring Cloud: nacos/ spring cloud config
+        Dubbo: 阿波罗
+    (4) 网关
+        Spring Cloud: zuul / srping cloud gateway
+        Dubbo: 需引入其他网关组件
+    (5) 负载均衡
+        Spring Cloud: ribbon
+        Dubbo: 自带负载均衡
+    (6) 熔断功能
+        Spring Cloud: hystrix
+        Dubbo: 需引入其他熔断框架
+    (7) 社区活跃度
+        Spring Cloud: 活跃、版本更新快
+        Dubbo: 不活跃
+* Tips
+    所以现在一般都会选择spring cloud 全家桶做微服务，因为spring cloud胜在功能更全，有一些列可以开箱即用的组件，满足服务化后的各种场
+景需求。或者说dubbo就是一个纯正的RPC框架，对于服务之间远程调用，性能非常优秀，并发高，响应快，但是也仅仅是一个RPC框架，如果需要其他的
+功能，则需要引入其他 的组件，因此在引入其他组件的过程中，可能会带来更多的问题。所以对于易用性这一块，spring cloud已经集成了各方面微服
+务所需要的组件，上手更快，拆坑更少，团队上手更容易，学习成本更低。可以开箱即用，快速上手。
+```
+
 * 看过Dubbo源码吗?说说Dubbo的底层架构原理?...
     
 ```
