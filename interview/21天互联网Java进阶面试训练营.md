@@ -9,8 +9,6 @@
 * 你们的系统使用了哪种服务框架?为什么要这样技术...
 
 * 看过Dubbo源码吗?说说Dubbo的底层架构原理?...
-
-    [](/interview/link/Dubbo的底层架构原理.pdf)
     
 ```
 * 简介
@@ -58,14 +56,11 @@
 
 * 咱们来聊点深入的,说说Dubbo底层的网络通信机制原...
 
-    [](/interview/link/Dubbo底层实现原理和机制.pdf)
     <https://blog.csdn.net/Internation985/article/details/103432187>
 
 * Dubbo框架从架构设计角度,是怎么保证极高的可扩展性...
 
 * 自己独立画出Dubbo的底层架构原理图
-
-    [](/interview/link/Dubbo的底层架构原理图.pdf)
 
 * 如果让你设计一个RPC框架,网络通信 代理机制 负载...
 
@@ -85,8 +80,6 @@
 
 * 你们对网关的技术选型是怎么考虑的?能对比一下各种网关...
 
-    [](/interview/link/微服务四大网关性能对比.pdf)
-
 * 说说生产环境下,你们是怎么实现网关对服务的动态路由...
 
 * 如果网关需要抗每秒10万的高并发访问,你应该怎么对网关...
@@ -97,7 +90,6 @@
 
 * 你们是如何基于网关实现灰度发布的?说说你们的灰度发布...
 
-    [](/interview/link/谈谈灰度发布的设计与实现.pdf)
     <https://www.jianshu.com/p/25f194bdb63b>
 
 * 说说你们一个服务从开发到上线, 服务注册 网关路由 服...
@@ -167,8 +159,6 @@
 * 淘宝和京东的库存是怎么实现的?能不能不用分布式锁实现...
 
 * 自己系统的分布式锁在高并发场景下应该如何优化?
-
-    [](/interview/link/每秒上千订单场景下的分布式锁高并发优化实践.pdf)
 
 
 #### 第三季
@@ -301,7 +291,6 @@ ConcurrentHashMap将数据分别放到多个Segment中，默认16个，每一个
 
 * 你对JDK中的AQS理解吗?AQS的实现原理是什么?
 
-    [](/interview/link/深入理解AQS.pdf)
 
 * 说说线程池的底层工作原理可以吗?
 
@@ -571,7 +560,7 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * Spring的事务实现原理是什么?能聊聊你对事物传播机制的...
 
-    [Spring事务传播机制详解](https://blog.csdn.net/qq_26323323/article/details/81908955)
+    <https://blog.csdn.net/qq_26323323/article/details/81908955>
 ```
 * @Transactional(propagation=Propagation.REQUIRED) (默认)
     如果有事务则加入事务，如果没有事务，则创建一个新的(默认值)
@@ -589,7 +578,6 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能画一张图说说Spring Boot的核心架构吗?
 
-    [Spring](/interview/link/能画一张图说说Spring的核心架构吗.pdf)
 ```
 (1) 独立运行Spring项目
     Spring boot 可以以jar包形式独立运行，运行一个Spring Boot项目只需要通过java -jar xx.jar来运行。
@@ -608,7 +596,6 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 能画一张图说说Spring的核心架构吗?
 
-    [](/interview/link/能画一张图说说Spring的核心架构吗.pdf)
 ```
 (1) 实例化bean
 (2) 设置对象属性(依赖注入)
@@ -621,8 +608,6 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 ```
 
 * 能说说Spring中都使用了哪些设计模式吗?
-
-    [](/interview/link/能说说Spring中都使用了哪些设计模式吗.pdf)
 
 * 能画一张图说说Spring Web MVC的核心架构吗?
 
@@ -642,8 +627,6 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 ```
 
 * 你知道JVM是如何运行起来的吗?我们的对象是如何分配...
-
-    [](/interview/link/你知道JVM是如何运行起来的吗.pdf)
 
 * 说说JVM在哪些情况下会触发垃圾回收可以吗?
 
@@ -682,7 +665,6 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 你能聊聊TCP/IP四种网络模型吗?OSI七层网络模型也说一下...
 
-    [](/interview/link/你能聊聊TCPIP四种网络模型吗.pdf)
     <https://blog.csdn.net/qq_22343483/article/details/104165180>
 
 * 浏览器请求www.baidu.com的全过程大概是怎样的?...
@@ -695,15 +677,10 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 * 聊聊HTTP协议的工作原理!
 
-    [](/interview/link/聊聊HTTP协议的工作原理.pdf)
-
 * 聊聊HTTPS的工作原理?为啥用HTTPS就可以加密通信?
-
-    [](/interview/link/聊聊HTTPS的工作原理.pdf)
 
 * 聊聊http的长连接的工作原理到底是啥?
 
-    [](/interview/link/聊聊http的长连接的工作原理到底是啥.pdf)
     <https://www.cnblogs.com/fyql/p/12272918.html>
 ```
     http本身没什么所谓的长连接短连接之说，其实说白了都是http下层的tcp连接是长连接还是短连接，tcp连接保持长连接，那么多个http请求和
@@ -715,45 +692,31 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * MYSQL,MyISAM和InnoDB存储引擎的区别是啥?
 
-    [](/interview/link/MyISAM和InnoDB存储引擎的区别是啥.pdf)
-
 * 聊聊MySQL的索引实现原理?各种索引你们平时都怎么用...
-
-    [](/interview/link/聊聊MySQL的索引实现原理.pdf)
 
 * 你能说说事务的几个特性是啥?有哪几种隔离级别?
 
-    [](/interview/link/你能说说事务的几个特性是啥.pdf)
-
 * 你能说说MySQL数据库锁的实现原理吗?如果死锁了咋办?
-
-    [](/interview/link/你能说说MySQL数据库锁的实现原理吗.pdf)
 
 * MySQL的SQL调优一般都有哪些手段?你们一般怎么做?
 
-    [](/interview/link/MySQL的SQL调优一般都有哪些手段.pdf)
     <https://blog.csdn.net/zhangbijun1230/article/details/81608252>
 
 * 聊聊Socket的工作原理?Socket和TCP IP之间是啥关系?
 
-    [](/interview/link/聊聊Socket的工作原理.pdf)
     <https://blog.csdn.net/klp098/article/details/51182721>
 
 * 进程之间是如何通信的?线程间又如何切换的?
 
 * 你能聊聊BIO,NIO,AIO分别都是啥?有什么区别?
 
-    [](/interview/link/你能聊聊BIO.pdf)
     <https://www.cnblogs.com/blackjoyful/p/11534985.html>
 
 * 线上服务CPU100%了!该怎么排查,定位和解决?
 
-    [](/interview/link/线上服务CPU100%25了.pdf)
     <https://blog.csdn.net/weixin_38827340/article/details/85311247>
 
 * 线上机器的一个进程用kill命令杀不死该怎么办?磁盘空间快...
-
-    [](/interview/link/线上机器的一个进程用kill命令杀不死该怎么办.pdf)
 
 * 关于后续深入硬件级讲解volatile,synchronized,CAS底...
 
@@ -803,17 +766,11 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 能不能说说一般黑客常用的XSS网络攻击的原理是什么?
 
-    [](/interview/link/网络XSS攻击和CSRF攻击原理及防范.pdf)
-
 * 能不能说说我们经常听到的SQL注入攻击背后的原理是什...
-
-    [](/interview/link/SQL注入.pdf)
 
 * 听说过CSRF攻击吗?你知道他背后的原理是什么吗?
 
 * 如果你们的系统允许用户上传文件,可能会遭到什么样的黑...
-
-    [](/interview/link/文件上传验证绕过技术总结.pdf)
 
 * 让所有工程师闻风色变的DDoS攻击到底是什么东西?
 
@@ -838,8 +795,6 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 能说说你对堆外内存的理解吗?堆外内存的优势在哪里?
 
-    [](/interview/link/堆外内存.pdf)
-
 * JDK是如何对堆外内存进行分配和回收的?会发生堆外内存...
 
 * 如何不使用零拷贝技术,普通的IO操作在OS层面是如何执...
@@ -848,23 +803,15 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 零拷贝技术到底是什么,他是如何提升IO性能的?
 
-    [](/interview/link/零拷贝.pdf)
-
 * 你们的分布式系统是如何进行链路监控的?都监控什么?
 
 * 对分布式系统进行核心链路追踪的时候,链路id是怎么管理...
 
-    [](/interview/link/Dubbo全链路追踪日志的实现.pdf)
-
 * 聊过两阶段提交了,那么分布式事务三阶段提交的思想能说...
-
-    [](/interview/link/对分布式事务及两阶段提交.pdf)
 
 * 唯一id生成机制中的snowflake算法的时钟回拨问题...
 
 * 实现灰度发布的时候,网关是可以灰度了,可是Dubbo服务...
-
-    [](/interview/link/灰度发布方案.pdf)
 
 ```
 * 定义
@@ -882,9 +829,6 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * 我们一般到底用Zookeeper来干什么事儿?
 
-    [](/interview/link/我们一般到底用Zookeeper来干什么事儿.pdf)
-    [](/interview/link/Zookeeper应用场景.pdf)
-
 * 有哪些开源的分布式系统中使用了Zookeeper?
 
 ```
@@ -892,8 +836,6 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 ```
 
 * 为什么我们在分布式系统架构中需要使用Zookeeper集群?
-
-    [](/interview/link/为什么我们在分布式系统架构中需要使用Zookeeper集群.pdf)
 
 * Zookeeper为了满足分布式系统的需求要有哪些特点?
 
@@ -923,11 +865,8 @@ tcp长连接，tcp三次握手，建立了连接，无论有多少次请求都�
 
 * Zookeeper集群的三种角色: Leader,Follower,...
 
-    [](/interview/link/Zookeeper集群的三种角色.pdf)
-
 * 客户端与Zookeeper之间的长连接和会话是什么?
 
-    [](/interview/link/客户端与Zookeeper之间的长连接和会话是什么.pdf)
     <https://blog.csdn.net/zhangjikuan/article/details/72059124>
 
 
