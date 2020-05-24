@@ -112,6 +112,8 @@
 
 * 自己独立画出Dubbo的底层架构原理图
 
+    [](/interview/link/Dubbo原理图.jpg)
+
 * 如果让你设计一个RPC框架,网络通信 代理机制 负载...
 
 * 平时除了使用外,有研究过Spring Cloud的底层架构原理...
