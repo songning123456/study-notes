@@ -977,17 +977,20 @@ jdk动态代理，生成一个跟你实现同样接口的一个代理类，构�
 #### 能说说Spring中的Bean是线程安全的吗?
 
 ```
-* singleton
-    单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例
+* singleton(默认)
+    单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例。
 * prototype
-    原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例
+    原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例，一般来说下面几种作用域，在开发的时候一般都
+不会用，99.99%的时候都是用singleton单例作用域。
 * request
-    对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效
+    对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作
+用域才有效，在请求完成以后，bean会失效并被垃圾回收器回收。
 * session
-    对于每次HTTP Session，使用session定义的Bean豆浆产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效
+    对于每次HTTP Session，使用session定义的Bean豆浆产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效，在session过期后，
+bean会随之失效。
 * globalsession
-    每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，
-该作用域才有效
+    每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中
+使用Spring时，该作用域才有效。
 
     其中比较常用的是singleton和prototype两种作用域。对于singleton作用域的Bean，每次请求该Bean都将获得相同的实例。容器负责跟踪Bean实例的状态，负责维护
 Bean实例的生命周期行为；如果一个Bean被设置成prototype作用域，程序每次请求该id的Bean，Spring都会新建一个Bean实例，然后返回给程序。在这种情况下，Spring
@@ -1001,24 +1004,29 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 
 #### Spring的事务实现原理是什么?能聊聊你对事物传播机制的...
 
-    <https://blog.csdn.net/qq_26323323/article/details/81908955>
+[测试用例]<https://blog.csdn.net/qq_26323323/article/details/81908955>
 ```
-* @Transactional(propagation=Propagation.REQUIRED) (默认)
-    如果有事务则加入事务，如果没有事务，则创建一个新的(默认值)
-* @Transactional(propagation=Propagation.NOT_SUPPORTED)
-    Spring不为当前方法开启事务，相当于没有事务,每条执行语句单独执行，单独提交
-* @Transactional(propagation=Propagation.REQUIRES_NEW)
-    不管是否存在事务，都创建一个新的事务，原来的方法挂起，新的方法执行完毕后，继续执行老的事务
-* @Transactional(propagation=Propagation.MANDATORY)
-    MANDATORY必须在已有事务下被调用，否则报错;NOT_SUPPORTED执行数据库层面的事务操作，故当前测试中，insert方法成功执行，delete方法的抛错并不影响insert方法的执行
-* @Transactional(propagation=Propagation.SUPPORTS)
-    SUPPORTS类型的事务传播机制，是否使用事务取决于调用方法是否有事务，如果有则直接用，如果没有则不使用事务
-* @Transactional(propagation=Propagation.NESTED)
-    如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与REQUIRED类似的操作
+* 实现原理
+    加一个@Transactional注解，Spring会使用AOP，对这个方法在执行前，先开启事务，在执行完毕后，根据方法是否报错，来决定是回滚还是提交事务。
+* 传播机制
+    (1) @Transactional(propagation=Propagation.REQUIRED) (默认)
+        如果有事务则加入事务，如果没有事务，则创建一个新的(默认值)
+    (2) @Transactional(propagation=Propagation.NOT_SUPPORTED)
+        Spring不为当前方法开启事务，相当于没有事务,每条执行语句单独执行，单独提交
+    (3) @Transactional(propagation=Propagation.REQUIRES_NEW)
+        不管是否存在事务，都创建一个新的事务，原来的方法挂起，新的方法执行完毕后，继续执行老的事务
+    (4) @Transactional(propagation=Propagation.MANDATORY)
+        MANDATORY必须在已有事务下被调用，否则报错;NOT_SUPPORTED执行数据库层面的事务操作，故当前测试中，insert方法成功执行，delete方
+    法的抛错并不影响insert方法的执行
+    (5) @Transactional(propagation=Propagation.SUPPORTS)
+        SUPPORTS类型的事务传播机制，是否使用事务取决于调用方法是否有事务，如果有则直接用，如果没有则不使用事务
+    (6) @Transactional(propagation=Propagation.NESTED)
+        如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与REQUIRED类似的操作
 ```
 
 #### 能画一张图说说Spring Boot的核心架构吗?
 
+[](/interview/link/SpringBoot的核心架构.png)
 ```
 (1) 独立运行Spring项目
     Spring boot 可以以jar包形式独立运行，运行一个Spring Boot项目只需要通过java -jar xx.jar来运行。
@@ -1038,17 +1046,45 @@ Java在创建Java实例时，需要进行内存申请；销毁实例时，需要
 #### 能画一张图说说Spring的核心架构吗?
 
 ```
-(1) 实例化bean
-(2) 设置对象属性(依赖注入)
-(3) 处理Aware接口
-(4) BeanPostProcessor
-(5) InitalizingBean与init-method
-(6) BeanPostProcessor
-(7) DisposableBean
-(8) destroy-method
+* Spring生命周期: 创建 -> 使用 -> 销毁
+* 用xml或注解，定义一堆bean
+* 流程
+    (1) 实例化bean
+        通过反射创建bean对象实例。
+    (2) 设置对象属性(依赖注入)
+        实例化后的对象被封装在BeanWrapper对象中，Spring根据BeanDefinition中的信息以及通过BeanWrapper提供的设置属性接口完成依赖注入。
+    这个bean依赖了谁，把依赖的bean也创建出阿里，给你进行一个注入，比如通过构造函数或setter方法。
+    (3) 处理Aware接口
+        Spring检查该对象是否实现了xxxAware接口，并将相关的xxxAware实例注入给Bean。
+        如果这个Bean实现了BeanNameAware接口，则调用它的实现setBeanName(String beanid)方法，传递就是Spring配置文件中的Bean的id值；
+        如果这个Bean实现了BeanFactoryAware接口，则调用它实现的setBeanFactory()方法，传递的是Spring工厂自身；
+        如果这个Bean实现了ApplicationContextAware接口，则调用setApplicationContext(ApplicationContext)方法，传入Spring上下文；
+    (4) BeanPostProcessor
+        如果想在bean实例构建之后，在这个时间点对bean进行自定义处理，则可以让bean实现BeanPostProcessor接口，会调用
+    postProcessBeforeInitialiazation(Object obj, String s)方法。
+    (5) InitalizingBean与init-method
+        如果bean在Spring配置文件中配置了init-method属性，则会自动调用其配置的初始化方法。
+    (6) BeanPostProcessor
+        在bean初始化完成后，如果这个bean实现了BeanPostProcessor接口，会调用postProcessAfterInitialization(Object obj, String s)方法。
+    (7) DisposableBean
+        当bean不再需要时，如果bean实现了DisposableBean接口，会调用其他实现的destroy()方法。
+    (8) destroy-method
+        如果配置了destroy-method属性，会调用配置的销毁方法。
 ```
 
 #### 能说说Spring中都使用了哪些设计模式吗?
+
+```
+* 工厂模式(把一个对象的创建过程放入一个具体工厂类中,当需要使用时通过工厂把这个对象实例取出来)
+    Spring ioc核心的设计模式的思想提现，他自己就是一个大的工厂，把所有的bean实例都给放在了spring容器里（大工厂），如果你要使用bean，
+就找spring容器就可以了，你自己不用创建对象了。
+* 单例模式
+    Spring默认来说，对每个bean走的都是一个单例模式，确保说你的一个类在系统运行期间只有一个实例对象，只有一个bean，用到了一个单例模式的
+思想，保证了每个bean都是单例的。
+* 代理模式
+    如果说你要对一些类的方法切入一些增强的代码，会创建一些动态代理的对象，让你对那些目标对象的访问，先经过动态代理对象，动态代理对象先
+做一些增强的代码，调用你的目标对象。
+```
 
 #### 能画一张图说说Spring Web MVC的核心架构吗?
 
