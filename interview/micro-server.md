@@ -1,3 +1,5 @@
+[TOC]
+
 #### 为什么网关Zuul之前还要配置Nginx?
 
 *** Nginx反向代理，软负载，把请求均匀负载到多台Zuul的机器上。LVS和Nginx处于不同的负载维度，主要是运维工程师负责管理。数据库，MYSQL，
@@ -143,3 +145,115 @@ Eureka Server出了问题。
     太强;服务平台敏感，难以简单复用。
     (3) Dubbo强依赖阿里，社区更新不及时，现在又开始更新，未来会不会停，不好说。Spring Cloud属于Spring社区，开源社区活跃。基于Spring boot，
     快速开发部署，方便测试。
+    
+    
+#### 什么是Hystrix?
+*** Hystrix可以让我们在分布式系统中对服务间的调用进行控制，加入一些调用延迟或者依赖故障的容错机制。
+* Hystrix 的设计原则
+    (1) 对依赖服务调用时出现的调用延迟和调用失败进行控制和容错保护。
+    (2) 在复杂的分布式系统中，阻止某一个依赖服务的故障在整个系统中蔓延。比如某一个服务故障了，导致其它服务也跟着故障。
+    (3) 提供 fail-fast（快速失败）和快速恢复的支持。
+    (4) 提供fallback优雅降级的支持。
+    (5) 支持近实时的监控、报警以及运维操作。
+* Hystrix更加细节的设计原则
+    (1) 阻止任何一个依赖服务耗尽所有的资源，比如 tomcat 中的所有线程资源。
+    (2) 避免请求排队和积压，采用限流和 fail fast 来控制故障。
+    (3) 提供fallback降级机制来应对故障。
+    (4) 使用资源隔离技术，比如bulkhead（舱壁隔离技术）、swim lane（泳道技术）、circuit breaker（断路技术）来限制任何一个依赖服务的故障的影响。
+    (5) 通过近实时的统计/监控/报警功能，来提高故障发现的速度。
+    (6) 通过近实时的属性和配置热修改功能，来提高故障处理和恢复的速度。
+    (7) 保护依赖服务调用的所有故障情况，而不仅仅只是网络故障情况。
+    
+    
+#### Hystrix资源隔离?
+
+* 定义
+    要把对某一个依赖服务的所有调用请求，全部隔离在同一份资源池内，不会去用其它资源了，这就叫资源隔离。哪怕对这个依赖服务，比如说商品服务，
+现在同时发起的调用量已经到了 1000，但是线程池内就10个线程，最多就只会用这 10 个线程去执行。不会对商品服务的请求，因为接口调用延时，将
+tomcat内部所有的线程资源全部耗尽。Hystrix进行资源隔离，其实是提供一个抽象，叫Command。把对某一个依赖服务的所有调用请求，全部隔离在同一
+份资源池内，对这个依赖服务的所有调用请求，全部走这个资源池内的资源，不会去用其他的资源。
+* Hystrix最基本的资源隔离技术，就是线程池隔离技术
+    (1) 利用HystrixCommand获取单条数据
+    (2) 利用HystrixObservableCommand批量获取数据
+    [](/interview/link/Hystrix线程池隔离技术.png)
+    从Nginx开始，缓存都失效了，那么Nginx通过缓存服务去调用商品服务。缓存服务默认的线程大小是10个，最多就只有10个线程去调用商品服务的接口。
+即使商品服务接口故障了，最多就只有 10 个线程会 hang 死在调用商品服务接口的路上，缓存服务的 tomcat 内其它的线程还是可以用来调用其它的服务。
+    (3) Hystrix实现资源隔离，主要有两种技术
+        (a) 线程池
+        (b) 信号量
+        默认情况下，Hystrix使用线程池模式。
+* 线程池机制
+```
+HystrixCommand command = new HystrixCommand(arg1, arg2); //HystrixCommand主要用于仅仅返回一个结果的调用
+HystrixObservableCommand command = new HystrixObservableCommand(arg1, arg2); //HystrixObservableCommand主要用于可能会返回多条结果的调用
+```
+执行command要从4个方法选一个: execute(), queue(), observe(), toObservable()
+    (1) execute(), queue()仅对HystrixCommand适用
+    (2) execute(): 同步调用，调用后block，直到依赖服务返回单条结果或异常
+    (3) queue(): 异步调用，返回一个Future，后面可以通过future获取结果
+    (4) observe(): 订阅一个Observable对象，Observable代表是依赖服务的返回结果，获取一个代表结果的Observable对象的拷贝对象。是立即
+    执行construct方法，拿到多行结果。
+    (5) toObservable(): 返回一个Observab对象，没有执行construct方法，延迟调用。如果订阅这个对象subscribe方法时，才会执行command
+    获取返回结果。
+* 信号量机制
+     信号量的资源隔离只是起到一个开关的作用。比如，服务A的信号量大小为10，那么就是说它同时只允许有10个tomcat线程来访问服务A，其它的请求
+ 都会被拒绝，从而达到资源隔离和限流保护的作用。
+* 线程池与信号量区别
+    [](/interview/link/线程池与信号量隔离的区别.png)
+    线程池隔离技术，是用Hystrix自己的线程去执行调用；而信号量隔离技术，是直接让tomcat线程去调用依赖服务。信号量隔离，只是一道关卡，
+信号量有多少，就允许多少个tomcat线程通过它，然后去执行。
+    [](/interview/link/线程池与信号量区别.png)
+    (1) 适用场景
+        线程池技术，适合绝大多数场景，比如说我们对依赖服务的网络请求的调用和访问、需要对调用的timeout进行控制（捕捉timeout超时异常）。
+    信号量技术，适合说你的访问不是对外部依赖的访问，而是对内部的一些比较复杂的业务逻辑的访问，并且系统内部的代码，其实不涉及任何的网络
+    请求，那么只要做信号量的普通限流就可以了，因为不需要去捕获timeout类似的问题。
+* Hystrix执行流程
+    (1) Hystrix请求缓存(request cache)
+        如果command开启了请求缓存，而且这个调用结果在缓存中存在，就直接从缓存返回结果
+    (2) 短路器
+        检测command对应的依赖服务是否打开短路器，如果打开，hystrix不执行command，执行fallback降级机制
+    (3) 检测线程池/队列/semaphore是否满
+        如果以上已满，不会执行command，直接执行fallback降级机制
+    (4) 执行command
+        如果基于线程池，有一个timeout机制。即HystrixCommand.run()或HystrixObservableCommand.construct()的执行，超过了timeout时
+    长的话，那么command所在线程会抛出一个TimeoutException,timeout也会执行fallback降级机制，不会管run()或construct()返回值。
+    (5) 注意点: 不可能终止Hystrix管理线程池中一个调用依赖服务timeout的线程，只能给外部抛出一个TimeoutException，由主线程来捕获再降级处理。
+* 4种调用fallback的降级机制的时机
+    (1) run()或construct()抛异常 
+    (2) 短路器打开 
+    (3) 线程池/队列/信号量满了 
+    (4) command执行超时
+    
+    
+#### Hystrix的8大执行流程
+
+* 构建一个HystrixCommand或HystrixObservableCommand,HystrixCommand主要用于仅仅返回一个结果的调用,HystrixObservableCommand主要用
+于可能会返回多条结果的调用
+* 调用Command的执行方法,执行Command发起一次对依赖服务的调用,执行command要从4个方法选一个：execute(), queue(), observe(), toObservable()。
+    (1) execute(),queue()仅对HystrixCommand适用;
+    (2) execute(): 同步调用，调用后block，直到依赖服务返回单条结果或异常;
+    (3) queue(): 异步调用，返回一个Future，后面可以通过future获取结果;
+    (4) observe(): 订阅一个Observable对象，Observable代表是依赖服务的返回结果，获取一个代表结果的Observable对象的拷贝对象。是立即执行
+    construct方法，拿到多行结果。
+    (5) toObservable(): 返回一个Observab对象，没有执行construct方法，延迟调用。如果订阅这个对象subscribe方法时，才会执行command获取返回结果。
+* 检查是否开启请求缓存
+    如果开启request cache, 而这个调用结果在缓存中存在，那么直接从缓存中返回
+* 检查是否开启短路器
+    如果短路器打开，那么hystrix就不会执行command，直接执行fallback降级机制
+* 检测线程池/队列/semaphore是否已满
+    如果已满，不会执行command，而直接走fallback降级机制
+* 执行command
+    (1) 调用HystrixObservableCommand.construct()或HystrixCommand.run()来实际执行这个command。
+    (2) HystrixCommand.run()返回一个单条结果，或者抛出一个异常
+    (3) HystrixObservableCommand.construct()返回一个Observable对象，可以获取多条结果
+    (4) 如果command执行超时，那么改线程会抛出TimeoutException，会执行fallback降级机制，不会管run()或construct()的返回值。
+* 短路健康检查
+    Hystrix会将每一个依赖服务的调用成功，失败，拒绝，超时等事件，都会发送给circuit breaker断路器。短路器就会对调用成功/失败/拒绝/超
+时等事件的次数进行统计
+* 调用fallback降级机制
+    [](/interview/link/Hystrixfallback降级机制.png)
+    (1) run()或construct()抛出一个异常
+    (2) 短路器打开
+    (3) 线程池/队列/信息量满
+    (4) Command超时，Hystrix会调用fallback降级机制
+    (5) 降级机制设置一些默认返回值
