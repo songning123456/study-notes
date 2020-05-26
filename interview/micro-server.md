@@ -523,3 +523,33 @@ HystrixCommandProperties.Setter().withCircuitBreakerForceClosed(boolean)
     钱，金融等对事务要求非常高的核心业务场景。
 * 总结
     TCC使用于大部分接口是同步调用的场景，要么一起成功，要么一起回滚。但在实际系统中，可能服务之间的调用时异步的，通过消息中间件。
+    
+#### Zookeeper都有哪些使用场景?
+
+* 分布式协调
+    (1) 场景:
+        A系统发请求到MQ，B系统消费之后，A系统怎么知道B系统的处理结果?
+    (2) 解决方案:
+        [](/interview/link/zk分布式协调.png)
+        用Zookeeper实现分布式系统之间协调工作。A系统发请求之后，在Zookeeper上对某个节点的值注册监听器，一旦B系统处理完值后就修改Zookeeper
+    的节点值，A系统就立马收到通知。
+* 分布式锁
+    (1) 场景: 
+        对某一个数据需要2个修改操作，两台机器同时收到请求，但需要一台执行后另一台才能执行。
+    (2) 解决方案:
+        使用ZK分布式锁。机器A收到请求后，在ZK创建一个znode，接着执行操作；另外一个机器B也尝试创建znode，发现创建不了，注册这个锁的监
+    听器，只能等待机器A执行完成之后再执行。ZK发现机器A释放锁后，ZK会通知机器B, 这样B可以获取锁。
+    (3) 实现:
+        [](/interview/link/zk分布式锁.png)
+        zookeeper.create(path…)尝试创建临时节点，创建成功就获取锁；如果被别的客户端获取了，就注册一个监听器监听这个锁，可以尝试用
+    CountDownLatch await或者别的方式等待，或者不断循环查询，如果监听这个节点被释放，就把latch countDown或者把等待release，重新尝
+    试获取锁。也可以基于zookeeper的临时顺序节点来实现，不用while true的循环。多人竞争一把锁时，会排队，后面每个排队的都去监听排在自
+    己前面那个人创建的znode。
+* 元数据/配置信息管理
+    (1) 场景:
+        [](/interview/link/zk元数据配置信息管理.png)
+        ZK可以作为很多系统的配置信息管理，比如Kafka, Storm，Dubbo。
+* HA高可用
+    (1) 场景: 
+        [](/interview/link/zk高可用.png)
+        大数据系统基于ZK开发HA高可用机制，比如Hadoop，HDFS，Yarm。一个进程/服务做主备两个，主挂了立马通过Zookeeper感知切换到备用进程或服务。
