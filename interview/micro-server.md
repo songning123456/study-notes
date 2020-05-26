@@ -146,7 +146,6 @@ Eureka Server出了问题。
     (3) Dubbo强依赖阿里，社区更新不及时，现在又开始更新，未来会不会停，不好说。Spring Cloud属于Spring社区，开源社区活跃。基于Spring boot，
     快速开发部署，方便测试。
     
-    
 #### 什么是Hystrix?
 *** Hystrix可以让我们在分布式系统中对服务间的调用进行控制，加入一些调用延迟或者依赖故障的容错机制。
 * Hystrix 的设计原则
@@ -163,7 +162,6 @@ Eureka Server出了问题。
     (5) 通过近实时的统计/监控/报警功能，来提高故障发现的速度。
     (6) 通过近实时的属性和配置热修改功能，来提高故障处理和恢复的速度。
     (7) 保护依赖服务调用的所有故障情况，而不仅仅只是网络故障情况。
-    
     
 #### Hystrix资源隔离?
 
@@ -224,7 +222,6 @@ HystrixObservableCommand command = new HystrixObservableCommand(arg1, arg2); //H
     (3) 线程池/队列/信号量满了 
     (4) command执行超时
     
-    
 #### Hystrix的8大执行流程
 
 * 构建一个HystrixCommand或HystrixObservableCommand,HystrixCommand主要用于仅仅返回一个结果的调用,HystrixObservableCommand主要用
@@ -257,7 +254,7 @@ HystrixObservableCommand command = new HystrixObservableCommand(arg1, arg2); //H
     (3) 线程池/队列/信息量满
     (4) Command超时，Hystrix会调用fallback降级机制
     (5) 降级机制设置一些默认返回值
-    
+ 
 #### Hystrix核心技术之请求缓存
 
 [](/interview/link/Hystrix核心技术请求缓存.png)
@@ -314,7 +311,7 @@ HystrixObservableCommand command = new HystrixObservableCommand(arg1, arg2); //H
             }
         }
     ```
-  
+
 #### 基于本地缓存的fallback降级
 
 * Hystrix出现以下四种情况，都会去调用fallback降级机制
@@ -328,7 +325,7 @@ HystrixObservableCommand command = new HystrixObservableCommand(arg1, arg2); //H
     (2) 默认值
         fallback直接返回一个默认值在HystrixCommand，降级逻辑的书写，是通过实现getFallback()接口；而在HystrixObservableCommand中，
     则是实现resumeWithFallback()方法。
-    
+ 
 #### Hystrix 断路器执行原理
 
 * RequestVolumeThreshold请求数
@@ -384,7 +381,7 @@ HystrixCommandProperties.Setter().withCircuitBreakerForceClosed(boolean)
     受的。Hystrix semaphore 技术可以用来限流和削峰，但是不能用来对调研延迟的服务进行timeout和隔离。
 * 基于timeout机制为服务接口调用超时提供安全保护
     如果你不对各种依赖服务接口的调用做超时控制，来给你的服务提供安全保护措施，那么很可能你的服务就被各种垃圾的依赖服务的性能给拖死了。
-    
+ 
 #### Hystrix核心总结
 * Hystrix内部工作原理，8大执行步骤和流程
 * 资源隔离: 多个依赖服务，做资源隔离，避免任何一个依赖服务故障导致服务资源耗尽而崩溃，高可用。
