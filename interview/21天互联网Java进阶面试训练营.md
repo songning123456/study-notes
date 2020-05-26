@@ -508,7 +508,7 @@ RocketMQ，作为MQ中间件，提供了分布式事务支持，已经把可靠�
 
 #### 在搭建的电商系统里,落地开发对交易链路的TCC分布式事务方案?
 
-    [](/interview/link/TCC分布式事务方案.png)
+[](/interview/link/TCC分布式事务方案.png)
 ```
 * 方案
     seata (https://github.com/seata/seata-samples.git)
@@ -547,7 +547,7 @@ https://github.com/seata/seata/releases，然后启动起来，这是分布式�
 
 #### 你了解RocketMQ对分布式事务支持的底层实现原理吗?
     
-    [](/interview/link/RocketMQ分布式事务.png)
+[](/interview/link/RocketMQ分布式事务.png)
 ```
     核心链路使用seata这种类似于TCC的事务，而像wms这种相当于是分支链路，可以通过MQ进行解耦。但是通过MQ解耦也会带来一些问题，例如消息
 丢失，消息重复等等问题，因此也需要进行最终一致性的保证。
