@@ -257,3 +257,139 @@ HystrixObservableCommand command = new HystrixObservableCommand(arg1, arg2); //H
     (3) 线程池/队列/信息量满
     (4) Command超时，Hystrix会调用fallback降级机制
     (5) 降级机制设置一些默认返回值
+    
+#### Hystrix核心技术之请求缓存
+
+[](/interview/link/Hystrix核心技术请求缓存.png)
+* 用法
+    检测是否开启请求缓存(request cache)，是否由请求缓存，如果有，直接取缓存返回结果
+* 概念
+    请求上下文，每个web应用中, Hystrix在一个filter中，对每个请求增加一个请求上下文。Tomcat中每次请求，就是一个请求上下文。一个请求上
+下文中会执行N多代码，调用N多个依赖服务。在一个请求上下文中，如果有多个command（假设参数一样，调用结构一样，返回结果也就一样），可以让
+第一次的command执行返回的结果，缓存在内存中，然后这个请求上下文中，后续对这个command的执行都从内存中取缓存结果。
+* 好处
+    不用在一次请求上下文中反复多次执行一样的command，避免重复执行网络请求，提升整个请求的性能。
+* 具体使用
+    (1) 实现Hystrix请求上下文过滤器并注册
+        (a) 定义HystrixRequestContextFilter类，实现Filter接口
+            ```
+            public class HystrixRequestContextFilter implements Filter{
+                ...
+            }
+            ```
+        (b) 然后将该filter对象注册到SpringBoot Application中
+            ```
+            @Bean
+                public FilterRegistrationBean filterRegistrationBean() {
+                    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HystrixRequestContextFilter());
+                    filterRegistrationBean.addUrlPatterns("/*");
+                    return filterRegistrationBean;
+                }
+            ```
+    (2) command重写getCacheKey()方法
+        ```
+        public class GetProductInfoCommand extends HystrixCommand<ProductInfo> {
+        
+            private static final HystrixCommandKey KEY = HystrixCommandKey.Factory.asKey("GetProductInfoCommand");
+                ...
+                /**
+                 * 每次请求的结果，都会放在Hystrix绑定的请求上下文上
+                 *
+                 * @return cacheKey 缓存key
+                 */
+                @Override
+                public String getCacheKey() {
+                    return "product_info_" + productId;
+                }
+            
+                /**
+                 * 将某个商品id的缓存清空
+                 *
+                 * @param productId 商品id
+                 */
+                public static void flushCache(Long productId) {
+                    HystrixRequestCache.getInstance(KEY,
+                            HystrixConcurrencyStrategyDefault.getInstance()).clear("product_info_" + productId);
+                }
+            }
+        }
+    ```
+  
+#### 基于本地缓存的fallback降级
+
+* Hystrix出现以下四种情况，都会去调用fallback降级机制
+    (1) 断路器处于打开的状态
+    (2) 资源池已满（线程池+队列/信号量）
+    (3) Hystrix调用各种接口，或者访问外部依赖，比如MySQL、Redis、Zookeeper、Kafka等等，出现了任何异常的情况。
+    (4) 访问外部依赖的时候，访问时间过长，报了TimeoutException异常。
+* 两种典型降级机制
+    (1) 纯内存数据
+        内存中维护一个 ehcache，作为一个纯内存的基于 LRU 自动清理的缓存，让数据放在缓存内，fallback从ehcache中获取数据
+    (2) 默认值
+        fallback直接返回一个默认值在HystrixCommand，降级逻辑的书写，是通过实现getFallback()接口；而在HystrixObservableCommand中，
+    则是实现resumeWithFallback()方法。
+    
+#### Hystrix 断路器执行原理
+
+* RequestVolumeThreshold请求数
+```
+HystrixCommandProperties.Setter().withCircuitBreakerRequestVolumeThreshold(int)   
+```
+表示在滑动窗口中，至少有多少个请求，才可能触发断路Hystrix经过断路器的流量超过了一定的阈值，才有可能触发断路。
+
+* ErrorThresholdPercentage异常比例
+```
+HystrixCommandProperties.Setter().withCircuitBreakerErrorThresholdPercentage(int)
+```
+表示异常比例达到多少，才会触发断路，默认值是 50(%)。如果断路器统计到的异常调用的占比超过了一定的阈值，比如说在 10s 内，经过断路器的流
+量达到了 30 个，同时其中异常访问的数量也达到了一定的比例，比如 60% 的请求都是异常（报错 / 超时 / reject），就会开启断路。
+
+* SleepWindowInMilliseconds 断路休息时间
+```
+HystrixCommandProperties.Setter().withCircuitBreakerSleepWindowInMilliseconds(int)
+```
+断路开启，也就是由 close 转换到 open 状态（close -> open）。那么之后在 SleepWindowInMilliseconds 时间内，所有经过该断路器的请求全
+部都会被断路，不调用后端服务，直接走 fallback 降级机制。而在该参数时间过后，断路器会变为 half-open 半开闭状态，尝试让一条请求经过断
+路器，看能不能正常调用。如果调用成功了，那么就自动恢复，断路器转为 close 状态。 
+
+* Enabled断路器开关
+```
+HystrixCommandProperties.Setter().withCircuitBreakerEnabled(boolean)
+```
+如果设置为true的话，直接强迫打开断路器，相当于是手动断路了，手动降级，默认值是false。
+
+* ForceClosed手动断路开关: 关
+```
+HystrixCommandProperties.Setter().withCircuitBreakerForceClosed(boolean)
+```
+如果设置为 true，直接强迫关闭断路器，相当于手动停止断路了，手动升级，默认值是 false。
+
+#### Hystrix线程池隔离与接口限流
+
+[](/interview/link/Hystrix线程池隔离与接口限流.png)
+    Hystrix 通过判断线程池或者信号量是否已满，超出容量的请求，直接 Reject 走降级，从而达到限流的作用。限流是限制对后端的服务的访问量，
+比如说你对 MySQL、Redis、Zookeeper 以及其它各种后端中间件的资源的访问的限制，其实是为了避免过大的流量直接打死后端的服务。
+* 线程隔离技术
+    Hystrix 对每个外部依赖用一个单独的线程池，这样的话，如果对那个外部依赖调用延迟很严重，最多就是耗尽那个依赖自己的线程池而已，不会
+影响其他的依赖调用。
+* 线程池机制的优点
+    (1) 隔离服务。任何一个依赖服务被隔离在线程池内，即使自己线程池资源满了，也不会影响其他服务调用。
+    (2) 方便引入新的依赖服务。即使新的依赖服务有问题，也不影响其他服务调用。
+    (3) 故障恢复。当一个有故障的服务变好后，可以通过清空线程池，快速恢复该服务调用。
+    (4) 健康报告。线程池的健康状态随时报告，比如成功、失败、拒绝、超时的次数统计，然后接近实时的热修改调用配置，不用停机。
+    (5) 基于线程池的异步本质，在同步调用之上，构建一层异步调用层。
+* 线程池机制的缺点
+    (1) 增加CPU开销。
+    (2) 每个command的执行依托独立线程，会进行排队，调度，上下文切换。Hystrix官方统计过额外开销，相比于可用性和稳定性的提升，是可以接
+    受的。Hystrix semaphore 技术可以用来限流和削峰，但是不能用来对调研延迟的服务进行timeout和隔离。
+* 基于timeout机制为服务接口调用超时提供安全保护
+    如果你不对各种依赖服务接口的调用做超时控制，来给你的服务提供安全保护措施，那么很可能你的服务就被各种垃圾的依赖服务的性能给拖死了。
+    
+#### Hystrix核心总结
+* Hystrix内部工作原理，8大执行步骤和流程
+* 资源隔离: 多个依赖服务，做资源隔离，避免任何一个依赖服务故障导致服务资源耗尽而崩溃，高可用。
+* 请求缓存: 对同一个request内多个相同command，使用request cache，提供性能。
+* 熔断: 基于断路器，采集异常情况，如报错，超时，拒绝，短路，一段时间不能访问，直接降级。
+* 降级: 服务提供的容错机制，fallback逻辑。
+* 限流: 通过线程池，或信号量，限制对某个后端服务或资源的访问量，直接降级。
+* 超时: 避免因某个依赖服务性能太差，导致大量线程卡住在这个依赖服务。
