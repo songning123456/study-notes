@@ -6,6 +6,7 @@
 *** 7083 uni-authority
 *** 7084 uni-id
 
+* 8012 cykb-server
 * 8020 cykb-es-server
 * 8022 cykb-es-theft
 * 8024 cykb-es-time
