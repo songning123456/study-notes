@@ -86,3 +86,9 @@ lsof -i:7000
 yum install dos2unix (如果已经安装，则略过此步骤)
 dos2unix xxx.sh (xxx.sh是你需要转换的文件)
 ```
+
+#### linux安装git
+```
+yum -y install git
+git --version
+```
