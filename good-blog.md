@@ -93,3 +93,6 @@
 
 #### Spring Cloud全家桶教程
 <https://www.jianshu.com/u/8f959a9cbc66>
+
+#### 推荐12个实用的gitbook插件
+<https://segmentfault.com/a/1190000019473512?utm_source=tag-newest>
