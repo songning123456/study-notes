@@ -84,3 +84,20 @@ vim nginx.pid
 nginx -c /etc/nginx/nginx.conf
 nginx -s reload
 ```
+
+
+#### nginx部署图片服务器
+cd /etc/nginx/conf.d
+vim image-server.conf
+```
+server {
+    listen      80;
+    server_name  image.sonin.cn;
+
+    location / {
+         root /etc/nginx/images/;
+         autoindex on;
+    }
+}
+```
+nginx -s reload
