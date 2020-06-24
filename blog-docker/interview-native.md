@@ -1,5 +1,5 @@
 #### window
-cd .../interview-book
+cd ../interview-book
 gitbook build
 tar -zcvf book.tar.gz _book
 

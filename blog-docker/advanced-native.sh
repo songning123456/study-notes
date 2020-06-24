@@ -1,15 +1,15 @@
 #!/bin/sh
 
-cd /root/docker-interview
+cd /root/docker-advanced
 rm -rf _book
-# book.tar.gz
+# _book.tar.gz
 rz
-tar -zxvf book.tar.gz
-rm -rf book.tar.gz
+tar -zxvf _book.tar.gz
+rm -rf _book.tar.gz
 cp Dockerfile ./_book/
 cd ./_book/
-containerName=interview_container
-imageName=interview_image
+containerName=advanced_container
+imageName=advanced_image
 exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
 if [ "${exist}" == "true" ]; then
       docker stop ${containerName}
