@@ -10,3 +10,7 @@ ruby brew_install.rb
 
 #### 安装docker
 brew cask install docker
+
+
+#### docker 配置镜像加速器
+参考：https://www.jianshu.com/p/390019f3854f
