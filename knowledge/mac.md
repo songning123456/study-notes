@@ -20,3 +20,6 @@ brew cask install docker
 #### mac解压rar文件
 brew install unrar
 unrar x xxx.rar
+
+#### mac终端打开u盘
+cd /Volumes
