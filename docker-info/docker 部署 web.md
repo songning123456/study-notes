@@ -169,6 +169,10 @@
 * --name 给容器取名
 * -f 指定构建文件
 
+### dockerhub id
+username: chonglingkaishi
+password: 772805406sn123.
+
 ### 参考文章
 * https://blog.csdn.net/stoneBridge1920/article/details/100894041
 * https://blog.csdn.net/stoneBridge1920/article/details/102920169
