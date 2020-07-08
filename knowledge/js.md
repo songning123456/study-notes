@@ -19,3 +19,9 @@ cmd窗口成功后在WebStorm中启动终端输入node -v仍然不是内部或�
  git commit & push
  chrome -> https://songning123456.github.io/blog-front/dist/#/
 ```
+
+#### npm切换淘宝镜像
+```
+npm config set registry https://registry.npm.taobao.org 
+npm config get registry
+```
