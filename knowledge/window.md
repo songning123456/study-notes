@@ -12,7 +12,7 @@ explorer.exe
 ipconfig /flushdns
 ```
 
-#### window10安装docker
+#### window10安装docker(专业版/企业版)
 ```
 1. 查看 任务管理器 -> 性能 -> CPU -> 虚拟化 是否启用。如果未启用，打开启用(百度)
 2. 开启Hyper-V(百度)
@@ -21,4 +21,10 @@ ipconfig /flushdns
     {
         "registry-mirrors": ["https://f35jtd7k.mirror.aliyuncs.com"]
     }
+```
+
+#### window10安装docker(家庭版)
+```
+https://www.cnblogs.com/jimmyshan-study/p/11161428.html
+https://blog.csdn.net/Dandelion_drq/article/details/89600329
 ```
