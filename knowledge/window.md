@@ -29,3 +29,13 @@ https://www.cnblogs.com/jimmyshan-study/p/11161428.html
 https://blog.csdn.net/Dandelion_drq/article/details/89600329
 https://www.cnblogs.com/wangwenhui/p/11808488.html
 ```
+
+```
+* 镜像加速
+docker-machine ssh default
+sudo cat /var/lib/boot2docker/profile
+sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=https://3laho3y3.mirror.aliyuncs.com |g"
+exit
+docker-machine restart default
+docker info
+```
