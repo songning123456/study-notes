@@ -20,8 +20,10 @@ cmd窗口成功后在WebStorm中启动终端输入node -v仍然不是内部或�
  chrome -> https://songning123456.github.io/blog-front/dist/#/
 ```
 
-#### npm切换淘宝镜像
+#### npm镜像源设置(最好安装version=12)
 ```
-npm config set registry https://registry.npm.taobao.org 
-npm config get registry
+npm config set registry https://registry.npm.taobao.org (切换至淘宝镜像)
+npm get registry (查看当前镜像源)
+npm config set registry https://registry.npmjs.org/ (切换至默认镜像)
+npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass (安装sass失败时补救措施)
 ```
