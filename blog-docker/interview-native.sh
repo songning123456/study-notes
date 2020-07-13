@@ -2,10 +2,10 @@
 
 cd /root/docker-interview
 rm -rf _book
-# book.tar.gz
+# _book.tar.gz
 rz
-tar -zxvf book.tar.gz
-rm -rf book.tar.gz
+tar -zxvf _book.tar.gz
+rm -rf _book.tar.gz
 cp Dockerfile ./_book/
 cd ./_book/
 containerName=interview_container

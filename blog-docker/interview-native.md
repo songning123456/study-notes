@@ -1,13 +1,13 @@
 #### window
 cd ../interview-book
 gitbook build
-tar -zcvf book.tar.gz _book
+tar -zcvf _book.tar.gz _book
 
 #### linux 
 cd /root/docker-interview
-rz book.tar.gz
-tar -zxvf book.tar.gz
-rm -rf book.tar.gz
+rz _book.tar.gz
+tar -zxvf _book.tar.gz
+rm -rf _book.tar.gz
 cp Dockerfile ./_book/
 cd ./_book/
 docker build -t interview_image -f Dockerfile .
