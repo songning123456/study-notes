@@ -17,4 +17,4 @@ fi
 docker rm ${containerName}
 docker rmi ${imageName}
 docker build -t ${imageName} -f Dockerfile .
-docker run --name ${containerName} -d -p 8040:80 --restart=always -v /etc/localtime:/etc/localtime ${imageName}
+docker run --name ${containerName} -d -p 8041:80 --restart=always -v /etc/localtime:/etc/localtime ${imageName}

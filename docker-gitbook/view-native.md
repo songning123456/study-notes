@@ -11,4 +11,4 @@ rm -rf _book.tar.gz
 cp Dockerfile ./_book/
 cd ./_book/
 docker build -t view_image -f Dockerfile .
-docker run --name view_container -d -p 8040:80 --restart=always -v /etc/localtime:/etc/localtime view_image
+docker run --name view_container -d -p 8041:80 --restart=always -v /etc/localtime:/etc/localtime view_image
