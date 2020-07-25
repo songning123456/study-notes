@@ -39,3 +39,8 @@ exit
 docker-machine restart default
 docker info
 ```
+
+
+#### window安装VMware
+<https://blog.csdn.net/Fly_1213/article/details/90897738>
+
