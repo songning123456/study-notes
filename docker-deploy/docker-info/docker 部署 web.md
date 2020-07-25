@@ -19,7 +19,7 @@
   ```
 * 启动镜像
   ```
-  docker run --name mysql_container  
+  docker run --name mysql_container --privileged=true
   -d -p 3306:3306 --restart=always
   -v $PWD/mysql-config:/etc/mysql/conf.d 
   -v $PWD/mysql-logs:/logs 
