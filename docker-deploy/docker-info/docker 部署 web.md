@@ -37,7 +37,7 @@
   ```
 * 启动镜像(*redis.conf本地上传到redis-config文件夹下*)
   ```
-  docker run --name redis_container
+  docker run --name redis_container --privileged=true
   -d -p 6379:6379 --restart=always
   -v $PWD/redis-config/redis.conf:/usr/local/etc/redis/redis.conf 
   -v $PWD/redis-data:/data 
