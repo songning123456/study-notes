@@ -3,6 +3,7 @@
 #### VMware安装CentOS7
 ```
 https://blog.csdn.net/tsundere_x/article/details/104263100
+https://blog.csdn.net/babyxue/article/details/80970526
 ```
 
 
