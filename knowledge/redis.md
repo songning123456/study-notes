@@ -80,3 +80,21 @@ ps -ef | grep redis
 ```
 /usr/local/redis/bin/redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005  127.0.0.1:7006 --cluster-replicas 1
 ```
+
+
+#### linux单机多端口部署redis5.0.0主从模式
+<https://blog.csdn.net/zhan123com/article/details/105512241>
+
+
+#### redis-server/redis-cli命令添加到环境变量中
+```
+vim /etc/profile
+
+
+// profile文件末尾添加如下配置
+// $PATH 映射 命令所在文件位置
+export PATH=$PATH:/usr/local/redis/bin
+
+// 重新加载
+source /etc/profile
+```
