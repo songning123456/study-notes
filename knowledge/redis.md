@@ -98,3 +98,16 @@ export PATH=$PATH:/usr/local/redis/bin
 // 重新加载
 source /etc/profile
 ```
+
+#### redis常用命令
+```
+// 判断role为master/slave
+redis-cli -p 6377 info|grep role
+
+// 杀死某个redis进程
+ps -ef|grep redis
+kill -9 pid
+
+// 删除所有的redis进程
+pkill -9 redis
+```
