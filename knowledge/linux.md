@@ -108,3 +108,8 @@ dos2unix xxx.sh (xxx.sh是你需要转换的文件)
 yum -y install git
 git --version
 ```
+
+#### linux模糊删除文件
+```
+find / -name "test*" |xargs rm -rf 
+```
