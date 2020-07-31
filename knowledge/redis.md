@@ -110,4 +110,7 @@ kill -9 pid
 
 // 删除所有的redis进程
 pkill -9 redis
+
+// 进入集群
+redis-cli -c -h 127.0.0.1 -p 6379 
 ```
