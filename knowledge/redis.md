@@ -39,7 +39,7 @@ cluster-node-timeout 5000	//集群超时时间，节点超过这个时间没反�
 appendonly yes	//存储方式，aof，将写操作记录保存到日志中
 // 最后两行必须执行，否则客户端不能连接
 # bind 127.0.0.1 // 注释此行
-protected no // yes修改为no
+protected-mode no // yes修改为no
 ```
     
 * 复制配置文件到7002~7006
