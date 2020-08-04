@@ -113,3 +113,41 @@ git --version
 ```
 find / -name "test*" |xargs rm -rf 
 ```
+
+
+#### centos7如何安装sshpass
+```
+yum install -y epel-release
+yum repolist
+yum install -y sshpass
+sshpass –V
+```
+
+
+#### 服务器A远程访问服务器B
+```
+服务器A => 192.168.0.10
+服务器B => 192.168.0.11
+
+服务器A xshell终端
+    ssh 用户名@192.168.0.11 << remotessh
+    > ...   // 具体操作
+    > ...   // 具体操作
+    > ...   // 具体操作
+    > exit
+    > remotessh
+
+
+Q: Pseudo-terminal will not be allocated because stdin is not a terminal
+A: ssh -tt 用户名@192.168.0.11 << remotessh
+```
+
+```
+// 后续需要在机器上离线安装sshpass
+// 目前在本机test环境下测试的
+sshpass -p rediscloud ssh -tt rediscloud@10.5.181.32 << remotessh
+> cd /home/rediscloud/redis-shell
+> mkdir test
+> exit
+> remotessh     // 只有执行完这一步，10.5.181.32环境才会生成test文件夹
+```
