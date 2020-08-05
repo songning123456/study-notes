@@ -125,6 +125,8 @@ sshpass –V
 
 
 #### 服务器A远程访问服务器B
+<https://blog.csdn.net/sn3009/article/details/52779642>
+
 ```
 服务器A => 192.168.0.10
 服务器B => 192.168.0.11
@@ -146,7 +148,7 @@ A: ssh -tt 用户名@192.168.0.11 << remotessh
 // 后续需要在机器上离线安装sshpass
 // 目前在本机test环境下测试的
 sshpass -p rediscloud ssh -tt rediscloud@10.5.181.32 << remotessh
-> cd /home/rediscloud/redis-shell
+> cd /home/rediscloud/deploy
 > mkdir test
 > exit
 > remotessh     // 只有执行完这一步，10.5.181.32环境才会生成test文件夹
