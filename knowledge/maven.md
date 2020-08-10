@@ -40,3 +40,7 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 * idea => file => settings => Build,execution,Deployment => Build Tools => Maven => Users setting file
 * 配置 config-file - maven - settings.xml
 ```
+
+#### window安装maven
+<https://blog.csdn.net/qq_37904780/article/details/81216179>
+<https://www.cnblogs.com/happyday56/p/8968328.html>
