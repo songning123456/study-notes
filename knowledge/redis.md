@@ -114,3 +114,16 @@ pkill -9 redis
 // 进入集群
 redis-cli -c -h 127.0.0.1 -p 6379 
 ```
+
+#### redis创建集群时显示错误: [ERR] Node xxx is not empty. Either the node already knows other no...
+<https://blog.csdn.net/XIANZHIXIANZHIXIAN/article/details/82777767>
+```
+1. 删除每个redis节点的备份文件，数据库文件和集群配置文件(redis.conf dump.db nodes-6379.conf)
+2. 使用redis-cli -c -h -p登录每个redis节点，使用以下命令
+    ./conf-4.0.0/redis/cli -c -h xxx -p yyy
+    > flushdb
+    > cluster reset
+3. ./conf-4.0.0/redis-trib.rb create --replicas 1 192.168.56.102:7001 192.168.56.102:7002 192.168.56.103:7003 192.168.56.103:7004 192.168.56.104:7005 192.168.56.104:7006
+   或者(redis-4.0.0 || redis-5.0.0)
+   ./conf-5.0.0/redis-cli --cluster create 10.5.181.32:9852 10.5.181.32:9853 10.5.181.32:9854 10.5.181.32:9855 10.5.181.32:9856 10.5.181.32:9857 --cluster-replicas 1
+```
