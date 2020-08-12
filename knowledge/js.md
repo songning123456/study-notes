@@ -27,3 +27,10 @@ npm get registry (查看当前镜像源)
 npm config set registry https://registry.npmjs.org/ (切换至默认镜像)
 npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass (安装sass失败时补救措施)
 ```
+
+#### chrome安装vue-devtools插件
+```
+把Vue.js Devtools_5.3.3.crx重名为Vue.js Devtools_5.3.3.zip
+把Vue.js Devtools_5.3.3.zip解压到D:\ChromePlugins\目录下(D:\ChromePlugins\Vue.js Devtools_5.3.3)
+chrome浏览器设置扩展程序,添加目录D:\ChromePlugins\Vue.js Devtools_5.3.3
+```
