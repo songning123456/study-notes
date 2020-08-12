@@ -13,4 +13,4 @@ vim ./conf-4.0.0/redis.conf
 
 cp ./conf-4.0.0/redis.conf ./service/redis.conf.15000
 sed -i 's/6379/15000/' ./service/redis.conf.15000
-./conf-4.0.0/redis-cli ./service/redis.conf.15000
+./conf-4.0.0/redis-server ./service/redis.conf.15000
