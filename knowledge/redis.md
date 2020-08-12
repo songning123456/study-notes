@@ -127,3 +127,8 @@ redis-cli -c -h 127.0.0.1 -p 6379
    或者(redis-4.0.0 || redis-5.0.0)
    ./conf-5.0.0/redis-cli --cluster create 10.5.181.32:9852 10.5.181.32:9853 10.5.181.32:9854 10.5.181.32:9855 10.5.181.32:9856 10.5.181.32:9857 --cluster-replicas 1
 ```
+
+#### Linux解压redis-4.0.0.bin.tar
+```
+tar xvf redis-4.0.0.bin.tar
+```
