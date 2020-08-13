@@ -23,6 +23,7 @@
     破解 -javaagent:C:\Programe Files\JetBranins\IntelliJIDEA 2019.3\bin\jetbrains-agent.jar
     
 #### webstorm
+    rainbow
 
 #### datagrip
 
