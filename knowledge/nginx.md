@@ -57,6 +57,7 @@ nginx -s reload
 
 #### centos7 安装 nginx
 ```
+* yum install epel-release (No package nginx available)
 * yum -y install nginx (安装 nginx)
 * systemctl status nginx.service (查看nginx状态 未启动)
 * service nginx start (启动nginx服务)
