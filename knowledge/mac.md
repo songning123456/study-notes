@@ -23,3 +23,6 @@ unrar x xxx.rar
 
 #### mac终端打开u盘
 cd /Volumes
+
+#### mac打开隐藏文件的快捷键
+command + shift + .
