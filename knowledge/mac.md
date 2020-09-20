@@ -26,3 +26,8 @@ cd /Volumes
 
 #### mac打开隐藏文件的快捷键
 command + shift + .
+
+#### 显示/隐藏 访达隐藏文件
+
+打开: defaults write com.apple.finder AppleShowAllFiles -bool true
+隐藏: defaults write com.apple.finder AppleShowAllFiles -bool false
