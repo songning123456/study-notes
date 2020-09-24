@@ -10,3 +10,10 @@
 netstat -ano | findstr "xxxx"
 taskkill -PID xxxx -F
 ```
+
+
+#### jdk1.8下载需要登陆oracle账号解决
+```
+账号：1789936303@qq.com
+密码：Oracle123456
+```
