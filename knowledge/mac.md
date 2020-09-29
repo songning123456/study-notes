@@ -31,3 +31,7 @@ command + shift + .
 
 打开: defaults write com.apple.finder AppleShowAllFiles -bool true
 隐藏: defaults write com.apple.finder AppleShowAllFiles -bool false
+
+
+#### mac idea 创建class/package文件的快捷键
+fn + control + enter
