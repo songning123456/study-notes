@@ -153,3 +153,7 @@ sshpass -p rediscloud ssh -tt rediscloud@10.5.181.32 << remotessh
 > exit
 > remotessh     // 只有执行完这一步，10.5.181.32环境才会生成test文件夹
 ```
+
+#### linux解压xxx.tar.gz
+tar -zxvf filename.tar.gz 解压到当前文件夹 
+tar -zxvf java.tar.gz  -C /usr/dir 解压到指定文件夹
