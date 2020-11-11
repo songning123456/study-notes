@@ -7,7 +7,7 @@
 
 #### Web server failed to start. Port xxxx was already in use
 ```
-netstat -ano | findstr "xxxx"
+netstat -ano|findstr xxxx
 taskkill -PID xxxx -F
 ```
 
