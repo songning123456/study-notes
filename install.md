@@ -10,8 +10,6 @@
 
 #### git
 
-#### git
-
 #### nodejs
     安装express
     
@@ -43,10 +41,8 @@
 
 #### notepad++
 
-#### notepad++
-
 #### typera
 
-#### kafkatool
+#### kafka tool
 
 #### zip解压工具
