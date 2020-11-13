@@ -5,9 +5,11 @@ docker run -d --restart=always --net=host --name nacos_container -p 8848:8848 -e
 username: nacos
 password: nacos
 
-* 注意 
-mysql版本5.7(docker pull mysql:5.7)，否则会nacos和mysql版本冲突
-
-
 docker restart nacos_container
+
+* 注意 
+1. mysql版本5.7(docker pull mysql:5.7)，否则会nacos和mysql版本冲突。
+2. 每一次发布都要重启nacos。
+
+
 
