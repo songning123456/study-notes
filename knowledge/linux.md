@@ -86,13 +86,13 @@ lsof -i:7000
     UUID="faf68ce4-4ed9-4991-9475-7874b8fde25f"
     DEVICE="ens33"
     ONBOOT="yes"
-    
-    # =两侧一定不能有空格，此处被坑
-    IPADDR="192.168.0.110" (填写需要的静态ip)
+    IPADDR="192.168.xxx(与宿主机相同).yyy" (填写需要的静态ip)
     GATEWAY="192.168.0.1" (宿主机网关)
     NETMASK="255.255.255.0" (宿主机子网掩码)
     DNS1=114.114.114.114
     DNS2=8.8.8.8
+
+注意: =两侧一定不能有空格，不能留空白行
 
 * reboot || service network restart
 ```
