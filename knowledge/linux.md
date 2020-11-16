@@ -94,7 +94,7 @@ lsof -i:7000
     DNS1=114.114.114.114
     DNS2=8.8.8.8
 
-* reboot
+* reboot || service network restart
 ```
 
 #### windows上传文件到linux需转换为unix格式
