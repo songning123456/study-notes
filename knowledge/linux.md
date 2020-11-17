@@ -87,7 +87,7 @@ lsof -i:7000
     DEVICE="ens33"
     ONBOOT="yes"
     IPADDR="192.168.xxx(与宿主机相同).yyy" (填写需要的静态ip)
-    GATEWAY="192.168.0.1" (宿主机网关)
+    GATEWAY="192.168.xxx.1" (宿主机网关)
     NETMASK="255.255.255.0" (宿主机子网掩码)
     DNS1=114.114.114.114
     DNS2=8.8.8.8
