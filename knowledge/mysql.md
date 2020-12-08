@@ -4,3 +4,10 @@
 ```mysql
 ALTER TABLE TABLE_NAME CONVERT TO CHARACTER SET utf8mb4;
 ```
+
+
+#### 查找某一数据库中包含某一字段的所有表
+
+```mysql
+SELECT * from information_schema.columns where TABLE_SCHEMA='数据库名称' and COLUMN_NAME = '字段名称';
+```
