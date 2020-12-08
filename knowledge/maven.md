@@ -44,3 +44,11 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 #### window安装maven
 <https://blog.csdn.net/qq_37904780/article/details/81216179>
 <https://www.cnblogs.com/happyday56/p/8968328.html>
+
+
+#### SpringBoot子工程jar启动找不到main
+1. cd 工程目录下
+2. mvn dependency:copy-dependencies -DoutputDirectory=lib
+3. resources保存.yml文件
+
+![springboot启动目录.jpg](/images/springboot启动目录.jpg)
