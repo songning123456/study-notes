@@ -17,3 +17,15 @@ taskkill -PID xxxx -F
 账号：1789936303@qq.com
 密码：Oracle123456
 ```
+
+#### 替换jar包中的某个class文件
+1. 使用jd-gui工具查看具体class信息(不要使用idea查看，有可能显示信息不全 Implmentation of methods is not available)
+2. 新建项目
+3. Project Settings => Libraries => + => Java => 所有*.jar包
+4. 新建src包 => 引入(除src/java/main) 复制原项目整个目录
+5. 修改。。。
+6. 项目名 => 右键 Build Module '项目名'
+7. 解压原来的jar包
+8. 从生成的class目录文件中copy修改的文件
+9. cd 解压原来的jar包目录下
+10. jar -cfM0 xxx.jar *
