@@ -52,3 +52,9 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 3. resources保存.yml文件
 
 ![springboot启动目录.jpg](/images/springboot启动目录.jpg)
+
+
+#### Springboot工程maven找不到jar包
+![mvn-install](/images/mvn-install.jpg)
+
+mvn install:install-file -DgroupId=com.ctrip.framework.apollo -DartifactId=smart-apollo-client -Dversion=1.2.0-SNAPSHOT -Dpackaging=jar -Dfile=E:\dcits\smart-apollo-client-1.2.0-SNAPSHOT.jar
