@@ -35,3 +35,6 @@ command + shift + .
 
 #### mac idea 创建class/package文件的快捷键
 fn + control + enter
+
+#### Mac OS英文文件夹名汉化为中文
+https://www.jianshu.com/p/a63359122b11
