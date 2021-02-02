@@ -50,3 +50,6 @@ docker info
 #### Loadrunner11.0安装与简单使用
 <https://www.cnblogs.com/chenzhazha/p/9897494.html>
 
+#### 安装loadrunner时出现”命令行选项语法错误键入命令 \?获得帮助“的解决方法
+<https://www.cnblogs.com/lelexiong/p/8974149.html>
+
