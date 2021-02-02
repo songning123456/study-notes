@@ -44,3 +44,9 @@ docker info
 #### window安装VMware
 <https://blog.csdn.net/Fly_1213/article/details/90897738>
 
+#### VMware虚拟机安装Windows7
+<https://blog.csdn.net/weixin_43465312/article/details/92662519>
+
+#### Loadrunner11.0安装与简单使用
+<https://www.cnblogs.com/chenzhazha/p/9897494.html>
+
