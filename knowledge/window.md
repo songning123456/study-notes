@@ -49,6 +49,9 @@ docker info
 
 Windows7产品密钥：237XB-GDJ7B-MV8MH-98QJM-24367
 
+#### win7系统电脑如何设置固定IP地址
+<https://jingyan.baidu.com/article/fec4bce21c4ebab2618d8bb2.html>
+
 #### Loadrunner11.0安装与简单使用
 <https://www.cnblogs.com/chenzhazha/p/9897494.html>
 
