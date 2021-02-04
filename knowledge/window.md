@@ -47,6 +47,8 @@ docker info
 #### VMware虚拟机安装Windows7
 <https://blog.csdn.net/weixin_43465312/article/details/92662519>
 
+Windows7产品密钥：237XB-GDJ7B-MV8MH-98QJM-24367
+
 #### Loadrunner11.0安装与简单使用
 <https://www.cnblogs.com/chenzhazha/p/9897494.html>
 
