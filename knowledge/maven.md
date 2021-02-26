@@ -58,3 +58,18 @@ No compiler is provided in this environment. Perhaps you are running on a JRE ra
 ![mvn-install](/images/mvn-install.jpg)
 
 mvn install:install-file -DgroupId=com.ctrip.framework.apollo -DartifactId=smart-apollo-client -Dversion=1.2.0-SNAPSHOT -Dpackaging=jar -Dfile=E:\dcits\smart-apollo-client-1.2.0-SNAPSHOT.jar
+
+
+#### Maven打包时去掉项目版本号
+Maven打包后，jar或war文件名里带有版本号信息，如projectname0.0.1-SNAPSHOT.jar等，怎么去掉呢？
+
+解决办法：
+
+打开项目pom.xml文件，在<build></build>标签内加入如下内容：
+```
+<build>
+    <finalName>projectname</finalName>
+</build>
+```
+
+ 举例，若要打包成apollo-configservice.jar，则<finalName></finalName>标签内填写apollo-configservice即可。
