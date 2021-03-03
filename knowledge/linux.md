@@ -157,3 +157,7 @@ sshpass -p rediscloud ssh -tt rediscloud@10.5.181.32 << remotessh
 #### linux解压xxx.tar.gz
 tar -zxvf filename.tar.gz 解压到当前文件夹 
 tar -zxvf java.tar.gz  -C /usr/dir 解压到指定文件夹
+
+#### xftp上传失败（磁盘空间已满）
+df -h (查看各个挂载磁盘信息情况)
+du -sh * (查看文件占用容量情况)
