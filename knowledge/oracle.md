@@ -41,7 +41,7 @@ grant select on DBA_FREE_SPACE to esbdata;
 grant select on DBA_DATA_FILES to esbdata;
 ```
 
-3. back
+3. back(删除user和tablespace)
 
 ```oracle
 drop user esbdata cascade;
