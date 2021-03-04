@@ -2,7 +2,7 @@
 
 ```oracle
 CREATE TABLESPACE ESBDATA DATAFILE 
-  '+DATADG/orcl/datafile/esbdata.dbf' SIZE 20480M AUTOEXTEND ON
+  '/home/esc/.../esbdata.dbf' SIZE 20480M AUTOEXTEND ON
 LOGGING
 ONLINE
 PERMANENT
