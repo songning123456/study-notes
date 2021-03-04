@@ -19,10 +19,8 @@ FLASHBACK ON;
 create user esbdata identified by esbdata
 default tablespace esbdata 
 temporary tablespace temp 
-quota unlimited on esbdata 
-quota unlimited on reminder
-quota unlimited on MONDATA
-quota unlimited on ESBTRANSHIS;
+quota unlimited on esbdata;
+
 --password expire;
 grant create procedure to esbdata with admin option;
 grant create sequence to esbdata;
