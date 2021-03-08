@@ -73,3 +73,9 @@ Maven打包后，jar或war文件名里带有版本号信息，如projectname0.0.
 ```
 
  举例，若要打包成apollo-configservice.jar，则<finalName></finalName>标签内填写apollo-configservice即可。
+ 
+ #### maven引入依赖失败（删除_remote.repositories和*.lastUpdated）
+ 
+ cd到本地仓库目录下
+ for /r %i (*.lastUpdated) do del %i
+ for /r %i in (_remote.repositories) do del %i
