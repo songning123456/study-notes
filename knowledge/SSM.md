@@ -2,4 +2,4 @@
 
 <https://blog.csdn.net/wangchaox123/article/details/99191001>
 
-[注] 已测试 java -jar -Dspring.config.location=/.../.../application.yml(全路径) xxx.jar
+[注] 已测试 java -jar -Dspring.config.location=/.../.../application.yml(全路径) xxx.jar   
