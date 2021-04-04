@@ -13,6 +13,7 @@ firewall-cmd --zone=public --add-port=1080/tcp --permanent
 firewall-cmd --add-masquerade --permanent
 #设置端口映射
 # firewall-cmd --add-forward-port=port=4650:proto=tcp:toaddr=${1}:toport=${2} --permanent
+# 考虑多执行几次，重启后也执行一次（经常不生效）
 firewall-cmd --add-forward-port=port=80:proto=tcp:toport=1080
 firewall-cmd --add-masquerade --permanent
 #重启firewall
