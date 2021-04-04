@@ -59,6 +59,32 @@ lsof -i:7000
     firewall-cmd --list-ports (查看已经开放的端口)
 ```
 
+#### CentOS7实现端口转发
+由于普通用户无法通过80端口启动nginx，因此修改nginx.conf为1080，
+通过防火墙实现端口转发，参考transport.sh。防火墙必须开启，同时源
+端口80和目标端口1080必须开发。
+
+```
+// 判断端口转发是否成功
+firewall-cmd --list-all
+
+// 结果
+public
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: dhcpv6-client ssh
+  ports: 80/tcp 1080/tcp 8090/tcp
+  protocols: 
+  masquerade: yes
+  forward-ports: port=80:proto=tcp:toport=1080:toaddr=
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+```
+
+
 #### linux查看某个端口是否被占用
 ```
 * netstat -ano | findstr "8080"
