@@ -89,3 +89,13 @@ Maven打包后，jar或war文件名里带有版本号信息，如projectname0.0.
     <scope>system</scope>
     <systemPath>{project.baseDir}/lib/xxx.jar</systemPath>
 </dependency>
+
+
+#### jar打包到maven依赖下
+
+mvn install:install-file -Dfile=F:\Download\smart-apollo-client.jar -DgroupId=com.ctrip.framework.apollo -DartifactId=smart-apollo-client -Dversion=1.2.0-SNAPSHOT -Dpackaging=jar
+
+#### 解压的文件夹重新打jar包
+
+cd smart-apollo-client文件夹下 
+jar -cfM0 smart-apollo-client.jar *
