@@ -27,24 +27,6 @@ study-notes\阿里云docker镜像加速.txt
 lsof -i:7000
 ```
 
-#### linux安装java
-```
-* 参考: https://blog.csdn.net/woshimeihuo/article/details/90608081
-* yum search java|grep jdk (使用yum查找jdk)
-* yum install java-1.8.0-openjdk
-* yum install java-1.8.0-openjdk-devel.x86_64(安装开发环境)
-* cd /usr/lib/jvm (通过yum安装的默认路径)
-* vim /etc/profile (将jdk的安装路径加入到JAVA_HOME)
-    #set java environment
-    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64 // java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64 修改为实际安装版本
-    JRE_HOME=$JAVA_HOME/jre
-    CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib 
-    PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
-    export JAVA_HOME JRE_HOME CLASS_PATH PATH
-
-* source /etc/profile (刷新)
-```
-
 #### centos7防火墙
 ```
 * 基本命令
