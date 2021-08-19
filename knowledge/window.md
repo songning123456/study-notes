@@ -58,3 +58,8 @@ Windows7产品密钥：237XB-GDJ7B-MV8MH-98QJM-24367
 #### 安装loadrunner时出现”命令行选项语法错误键入命令 \?获得帮助“的解决方法
 <https://www.cnblogs.com/lelexiong/p/8974149.html>
 
+
+#### window版nginx停止
+1. tasklist /fi "magename eq nginx.exe"
+2. taskkill /f /t /im nginx.exe
+
