@@ -169,3 +169,14 @@ tar -zxvf java.tar.gz  -C /usr/dir 解压到指定文件夹
 #### xftp上传失败（磁盘空间已满）
 df -h (查看各个挂载磁盘信息情况)
 du -sh * (查看文件占用容量情况)
+
+
+#### vi文字显示不同颜色
+
+1. yum install -y vim
+2. vi ~/.vimrc
+```
+set t_Co=256
+syntax on
+```
+3. ln -sf /usr/bin/vim /bin/vi  // syntax: command not found
