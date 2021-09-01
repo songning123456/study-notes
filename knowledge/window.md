@@ -75,3 +75,7 @@ Windows7产品密钥：237XB-GDJ7B-MV8MH-98QJM-24367
 1. tasklist /fi "magename eq nginx.exe"
 2. taskkill /f /t /im nginx.exe
 
+
+#### Win10开机内存占用60%
+<https://jingyan.baidu.com/article/3a2f7c2e56126a67aed6117b.html>
+
