@@ -38,3 +38,21 @@ fn + control + enter
 
 #### Mac OS英文文件夹名汉化为中文
 https://www.jianshu.com/p/a63359122b11
+
+
+#### Mac下使用ll命令
+https://blog.csdn.net/u010172505/article/details/78164316
+
+
+#### Mac系统安装JDK1.8及环境变量配置
+https://www.jianshu.com/p/a85658902f26
+
+
+#### MAC软件打开提示:已损坏,打不开 您应该将它移到废纸娄的解决方法
+https://www.jb51.net/softjc/720596.html
+
+e.g: navicate破解版
+
+
+#### Mac安装Navicat可视化工具
+https://blog.csdn.net/weixin_41850404/article/details/93004448
