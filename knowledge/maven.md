@@ -77,8 +77,11 @@ Maven打包后，jar或war文件名里带有版本号信息，如projectname0.0.
  #### maven引入依赖失败（删除_remote.repositories和*.lastUpdated）
  
  cd到本地仓库目录下
- for /r %i (*.lastUpdated) do del %i
- for /r %i in (_remote.repositories) do del %i
+ 
+ ```
+for /r %i in (*.lastUpdated) do del %i
+for /r %i in (*remote.repositories) do del %i
+ ```
  
 #### maven项目引用lib目录下的jar包
 
