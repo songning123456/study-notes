@@ -34,6 +34,7 @@ lsof -i:7000
 	systemctl stop firewalld.service (停止firewall)
 	systemctl disable firewalld.service (禁止firewall开机启动)
 	systemctl start firewalld.service (启动)
+    systemctl enable firewalld (开机启动)
 	systemctl restart firewalld.service (重启)
 	firewall-cmd --zone=public --add-port=5672/tcp --permanent(开放)
 	firewall-cmd --zone=public --remove-port=5672/tcp --permanent(关闭)
