@@ -5,10 +5,27 @@
 yum update
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum install docker-ce-17.12.1.ce
+yum install -y docker-ce-17.12.1.ce
 systemctl start docker
 systemctl enable docker
 docker -v
+```
+
+#### docker 普通用户操作
+```
+root用户操作
+
+1. 添加docker用户组:
+sudo groupadd docker
+
+2. 将登陆用户加入到docker用户组中:
+gpasswd -a $USER docker
+
+3. 更新用户组，当前终端生效，新开终端需要重新输入指令:
+newgrp docker
+
+4. a表示所有用户都被赋予后面的权限，一次配置，之后任意开启终端都有效:
+chmod a+rw /var/run/docker.sock
 ```
 
 #### docker 安装jenkins
